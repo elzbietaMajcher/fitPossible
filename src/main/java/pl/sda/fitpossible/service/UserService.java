@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        userRepository.existsById(id);
+        userRepository.deleteById(id);
     }
 
     private UserDto mapTo(User user) {

@@ -13,7 +13,7 @@ public class UserDto {
     private Long id;
     @NotBlank
     private String login;
-    @NotBlank
+    //@NotBlank
     private String password;
     @Email
     @NotBlank
