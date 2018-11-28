@@ -9,7 +9,7 @@ import pl.sda.fitpossible.service.UserService;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "/users")
 public class UserController {
 
@@ -20,13 +20,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public void createUser(@RequestBody UserDto dto) {
+    @PostMapping("/create")
+    public List<UserDto> createUser(@Valid @RequestBody UserDto dto) { // validation not working properly, adds no record when active
         userService.create(dto);
-        userService.findAll();
+        return userService.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
+    public UserDto getUserById (@PathVariable long id){
+        return userService.findUser(id);
+    }
+
+
+    @GetMapping("/all")
     public List<UserDto> findAll() {
         return userService.findAll();
     }
