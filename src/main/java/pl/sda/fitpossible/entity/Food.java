@@ -2,11 +2,8 @@ package pl.sda.fitpossible.entity;
 
 import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;
-
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
-import java.math.BigInteger;
 
 @Data
 @Entity
