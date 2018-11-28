@@ -1,8 +1,25 @@
 package pl.sda.fitpossible.entity;
 
+import lombok.Data;
+import org.springframework.format.annotation.NumberFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import java.math.BigInteger;
+
+@Data
+@Entity
+@Table(name = "food")
 public class Food {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
-    private Double calorityPerUnit;
+    @NotBlank
+    @NumberFormat
+    private Integer caloriesPerUnit;
+    @NotBlank
     private String unit;
 }
