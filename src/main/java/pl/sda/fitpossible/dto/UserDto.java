@@ -6,6 +6,7 @@ import pl.sda.fitpossible.entity.LifestyleType;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 @Data
 public class UserDto {
@@ -13,18 +14,18 @@ public class UserDto {
     private Long id;
     @NotBlank
     private String login;
-    //@NotBlank
+    @NotBlank
     private String password;
     @Email
     @NotBlank
     private String email;
-    @NotBlank
+    @NotNull
     private Gender gender;
-    @NotBlank
+    @NotNull
     private Integer height;
-    @NotBlank
+    @NotNull
     private Date dateOfBirth;
-    @NotBlank
+    @NotNull
     private LifestyleType lifestyle;
 
 }
