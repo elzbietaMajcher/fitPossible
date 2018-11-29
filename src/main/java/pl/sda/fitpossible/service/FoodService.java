@@ -12,44 +12,47 @@ import java.util.Optional;
 @Service
 public class FoodService {
 
-    @Autowired
-    private FoodRepository foodRepository;
 
-    public void saveFood(FoodDto foodDto){
+    private FoodRepository foodRepository;
+    public FoodService(FoodRepository foodRepository) {
+        this.foodRepository = foodRepository;
+    }
+
+
+    public void saveFood(FoodDto foodDto) {
         Food food = new Food();
         food = map(foodDto);
         foodRepository.save(food);
     }
 
-    public void deldeleteFood(Long id){
-       foodRepository.findById(id);
+    public void delateFood(Long id) {
+        foodRepository.deleteById(id);
     }
 
-    public void updateFood(Long id, FoodDto foodDto){
+    public void updateFood(FoodDto foodDto, Long id) {
         Food food = foodRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Task not found " + id));
-        food=map(foodDto);
+                .orElseThrow(() -> new EntityNotFoundException("Item not found " + id));
+        food = map(foodDto);
         foodRepository.save(food);
     }
 
-    public FoodDto findFoodById(Long id){
+
+    public FoodDto findFoodById(Long id) {
         Food food = foodRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Task not found " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Item not found " + id));
+        return map(food);
+    }
+
+    public FoodDto findFoodByName(String name) {
+        Food food = foodRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException("Item not found " + name));
         FoodDto foodDto = map(food);
         return foodDto;
     }
 
-    public FoodDto findFoodByName(String name){
-        Food food = foodRepository.findByName(name)
-                .orElseThrow(()-> new EntityNotFoundException("Task not found " + name));
-        FoodDto foodDto = map(food);
-        return  foodDto;
-    }
-
-
 
     private Food map(FoodDto foodDto) {
-        Food food =new Food();
+        Food food = new Food();
         food.setId(foodDto.getId());
         food.setName(foodDto.getName());
         food.setCaloriesPerUnit(foodDto.getCaloriesPerUnit());
@@ -57,7 +60,7 @@ public class FoodService {
         return food;
     }
 
-    private FoodDto map(Food food){
+    private FoodDto map(Food food) {
         FoodDto foodDto = new FoodDto();
         foodDto.setId(food.getId());
         foodDto.setName(food.getName());

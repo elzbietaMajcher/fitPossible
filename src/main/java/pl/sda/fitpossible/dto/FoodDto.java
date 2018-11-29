@@ -9,11 +9,10 @@ import javax.validation.constraints.NotBlank;
 public class FoodDto {
 
     private Long id;
-    @NotBlank
+
     private String name;
-    @NotBlank
-    @NumberFormat
+
     private Integer caloriesPerUnit;
-    @NotBlank
+
     private String unit;
 }
