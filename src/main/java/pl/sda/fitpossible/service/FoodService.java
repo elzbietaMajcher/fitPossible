@@ -12,8 +12,9 @@ import java.util.Optional;
 @Service
 public class FoodService {
 
-    @Autowired
+
     private FoodRepository foodRepository;
+    public FoodService(FoodRepository foodRepository){this.foodRepository = foodRepository;}
 
     public void saveFood(FoodDto foodDto){
         Food food = new Food();
@@ -21,27 +22,29 @@ public class FoodService {
         foodRepository.save(food);
     }
 
-    public void deldeleteFood(Long id){
-       foodRepository.findById(id);
+    public void deleteFood(Long id){
+       foodRepository.deleteById(id);
     }
 
     public void updateFood(Long id, FoodDto foodDto){
-        Food food = foodRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Task not found " + id));
-        food=map(foodDto);
-        foodRepository.save(food);
+        Optional<Food> food = foodRepository.findById(id);
+        Food findFood = food
+                .orElseThrow(()-> new EntityNotFoundException("Item not found " + id));
+        findFood=map(foodDto);
+        foodRepository.save(findFood);
     }
 
     public FoodDto findFoodById(Long id){
-        Food food = foodRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Task not found " + id));
-        FoodDto foodDto = map(food);
-        return foodDto;
+        Optional<Food> food = foodRepository.findById(id);
+        Food findFood = food
+                .orElseThrow(()-> new EntityNotFoundException("Item not found " + id));
+        return map(findFood);
+
     }
 
     public FoodDto findFoodByName(String name){
         Food food = foodRepository.findByName(name)
-                .orElseThrow(()-> new EntityNotFoundException("Task not found " + name));
+                .orElseThrow(()-> new EntityNotFoundException("Item not found " + name));
         FoodDto foodDto = map(food);
         return  foodDto;
     }
