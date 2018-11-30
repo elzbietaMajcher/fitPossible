@@ -14,45 +14,45 @@ public class FoodService {
 
 
     private FoodRepository foodRepository;
-    public FoodService(FoodRepository foodRepository) {
-        this.foodRepository = foodRepository;
-    }
+    public FoodService(FoodRepository foodRepository){this.foodRepository = foodRepository;}
 
-
-    public void saveFood(FoodDto foodDto) {
+    public void saveFood(FoodDto foodDto){
         Food food = new Food();
         food = map(foodDto);
         foodRepository.save(food);
     }
 
-    public void delateFood(Long id) {
-        foodRepository.deleteById(id);
+    public void deleteFood(Long id){
+       foodRepository.deleteById(id);
     }
 
-    public void updateFood(FoodDto foodDto, Long id) {
-        Food food = foodRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Item not found " + id));
-        food = map(foodDto);
-        foodRepository.save(food);
+    public void updateFood(Long id, FoodDto foodDto){
+        Optional<Food> food = foodRepository.findById(id);
+        Food findFood = food
+                .orElseThrow(()-> new EntityNotFoundException("Item not found " + id));
+        findFood=map(foodDto);
+        foodRepository.save(findFood);
     }
 
+    public FoodDto findFoodById(Long id){
+        Optional<Food> food = foodRepository.findById(id);
+        Food findFood = food
+                .orElseThrow(()-> new EntityNotFoundException("Item not found " + id));
+        return map(findFood);
 
-    public FoodDto findFoodById(Long id) {
-        Food food = foodRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Item not found " + id));
-        return map(food);
     }
 
-    public FoodDto findFoodByName(String name) {
+    public FoodDto findFoodByName(String name){
         Food food = foodRepository.findByName(name)
-                .orElseThrow(() -> new EntityNotFoundException("Item not found " + name));
+                .orElseThrow(()-> new EntityNotFoundException("Item not found " + name));
         FoodDto foodDto = map(food);
-        return foodDto;
+        return  foodDto;
     }
+
 
 
     private Food map(FoodDto foodDto) {
-        Food food = new Food();
+        Food food =new Food();
         food.setId(foodDto.getId());
         food.setName(foodDto.getName());
         food.setCaloriesPerUnit(foodDto.getCaloriesPerUnit());
@@ -60,7 +60,7 @@ public class FoodService {
         return food;
     }
 
-    private FoodDto map(Food food) {
+    private FoodDto map(Food food){
         FoodDto foodDto = new FoodDto();
         foodDto.setId(food.getId());
         foodDto.setName(food.getName());

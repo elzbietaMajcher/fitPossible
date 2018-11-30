@@ -1,6 +1,7 @@
 package pl.sda.fitpossible.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.fitpossible.dto.FoodDto;
 import pl.sda.fitpossible.service.FoodService;
@@ -11,41 +12,32 @@ public class FoodController {
 
 
     private FoodService foodService;
-
-    public FoodController(FoodService foodService) {
-        this.foodService = foodService;
-    }
-
+    public FoodController(FoodService foodService){this.foodService = foodService;}
 
     @PostMapping("/create")
-    public void create(@RequestBody FoodDto foodDto) {
+    public void create(@RequestBody FoodDto foodDto){
         foodService.saveFood(foodDto);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id) {
-        foodService.delateFood(id);
+    public void delete(@PathVariable Long id){
+        foodService.deleteFood(id);
     }
 
     @GetMapping("/find/{id}")
-    public FoodDto findUsingId(@PathVariable Long id) {
-        FoodDto foodDto = foodService.findFoodById(id);
-        return foodDto;
+    public void findUsingId(@PathVariable Long id){
+        foodService.findFoodById(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public void update( @RequestBody FoodDto foodDto,@PathVariable Long id ){
+        foodService.updateFood(id, foodDto);
     }
 
 //    @GetMapping(name = "/{name}")
-//    public FoodDto findUsingName(@RequestParam String name){
+//    public FoodDto findUsingName(@PathVariable String name){
 //        FoodDto foodDto = foodService.findFoodByName(name);
 //        return foodDto;
 //    }
 
-    @PutMapping("/{id}")
-    public void editFood(@RequestBody FoodDto foodDto, @PathVariable("id") Long id) {
-        foodService.updateFood(foodDto, id);
-    }
-
-    @RequestMapping("/")
-    public String index() {
-        return "Hello world.";
-    }
 }
