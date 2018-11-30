@@ -21,10 +21,9 @@ public class UserRestController {
     }
 
     @PostMapping("/create")
-    public List<UserDto> createUser(@Valid @RequestBody UserDto dto) { // validation not working properly, adds no record when active
+    public void createUser(@Valid @RequestBody UserDto dto) {
         userService.create(dto);
-        return userService.findAll();
-    }
+        }
 
     @GetMapping("/{id}")
     public UserDto getUserById (@PathVariable long id){
