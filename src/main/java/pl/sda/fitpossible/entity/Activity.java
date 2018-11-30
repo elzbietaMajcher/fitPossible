@@ -16,8 +16,6 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private ActivityType activityType;
-    private Time duration;
-    private int count;
     private int caloriesPerHour;
     private int caloriesPerRep;
 }

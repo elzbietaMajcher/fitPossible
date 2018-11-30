@@ -4,12 +4,16 @@ import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class FoodDto {
 
     private Long id;
+    @NotBlank
     private String name;
+    @NotNull
     private Integer caloriesPerUnit;
+    @NotBlank
     private String unit;
 }

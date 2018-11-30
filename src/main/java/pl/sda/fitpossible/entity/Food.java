@@ -15,10 +15,7 @@ public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
     private String name;
-    @NotNull
     private Integer caloriesPerUnit;
-    @NotBlank
     private String unit;
 }
