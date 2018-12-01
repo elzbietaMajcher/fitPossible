@@ -16,8 +16,8 @@ public class ActivityDto {
     private Long id;
     @NotBlank
     private ActivityType activityType;
-    @NotNull
+
     private int caloriesPerHour;
-    @NotNull
+
     private int caloriesPerRep;
 }
