@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pl.sda.fitpossible.entity.AppUser;
 
 @Repository  //??
-public interface UserRepository extends JpaRepository<AppUser, Long> {
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 }

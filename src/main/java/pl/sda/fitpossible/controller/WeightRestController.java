@@ -14,7 +14,7 @@ import javax.validation.Valid;
 @RequestMapping(value = "/weight")
 public class WeightRestController {
 
-    /*@Autowired*/
+    @Autowired
     private WeightService weightService;
 
     public WeightRestController(WeightService weightService) {

@@ -1,75 +1,94 @@
 package pl.sda.fitpossible.service;
 
 import org.springframework.stereotype.Service;
-import pl.sda.fitpossible.dto.UserDto;
-import pl.sda.fitpossible.entity.User;
-import pl.sda.fitpossible.repository.UserRepository;
+import pl.sda.fitpossible.dto.AppUserDto;
+import pl.sda.fitpossible.entity.AppUser;
+import pl.sda.fitpossible.entity.Weight;
+import pl.sda.fitpossible.repository.AppUserRepository;
+import pl.sda.fitpossible.repository.WeightRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class AppUserService {
 
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
+    private WeightRepository weightRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AppUserService(AppUserRepository appUserRepository,
+                          WeightRepository weightRepository) {
+        this.appUserRepository = appUserRepository;
+        this.weightRepository = weightRepository;
     }
 
-    public void create(UserDto dto) {
-        User user = mapTo(dto);
-        userRepository.save(user);
+    private void saveWeight(AppUserDto appUserDto, AppUser appUser){
+        Weight weight = getWeight(appUserDto,appUser);
+        weightRepository.save(weight);
     }
 
-    public UserDto findUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found."));
-        return mapTo(user);
+    private Weight getWeight(AppUserDto appUserDto, AppUser appUser) {
+        Weight weight = new Weight();
+        weight.setWeight(appUserDto.getWeight());
+        weight.setOwner(appUser);
+        return weight;
     }
 
-    public List<UserDto> findAll() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map(this::mapTo).collect(Collectors.toList());
+    public void create(AppUserDto dto) {
+        AppUser appUser = mapTo(dto);
+        appUserRepository.save(appUser);
+
+        saveWeight(dto, appUser);
     }
 
-    public void update(Long id, UserDto dto) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found."));
-        user.setPassword(dto.getPassword());
-        user.setLifestyle(dto.getLifestyle());
-        user.setEmail(dto.getEmail());
-        userRepository.save(user);
+    public AppUserDto findUser(Long id) {
+        AppUser appUser = appUserRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
+        return mapTo(appUser);
+    }
+
+    public List<AppUserDto> findAll() {
+        List<AppUser> appUsers = appUserRepository.findAll();
+        return appUsers.stream().map(this::mapTo).collect(Collectors.toList());
+    }
+
+    public void update(Long id, AppUserDto dto) {
+        AppUser appUser = appUserRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
+        appUser.setPassword(dto.getPassword());
+        appUser.setLifestyle(dto.getLifestyle());
+        appUser.setEmail(dto.getEmail());
+        appUserRepository.save(appUser);
     }
 
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        appUserRepository.deleteById(id);
     }
 
-    private UserDto mapTo(User user) {
-        UserDto dto = new UserDto();
-        dto.setId(user.getId());
-        dto.setLogin(user.getLogin());
-        dto.setPassword(user.getPassword());
-        dto.setEmail(user.getEmail());
-        dto.setDateOfBirth(user.getDateOfBirth());
-        dto.setGender(user.getGender());
-        dto.setHeight(user.getHeight());
-        dto.setLifestyle(user.getLifestyle());
+    private AppUserDto mapTo(AppUser appUser) {
+        AppUserDto dto = new AppUserDto();
+        dto.setId(appUser.getId());
+        dto.setLogin(appUser.getLogin());
+        dto.setPassword(appUser.getPassword());
+        dto.setEmail(appUser.getEmail());
+        dto.setDateOfBirth(appUser.getDateOfBirth());
+        dto.setGender(appUser.getGender());
+        dto.setHeight(appUser.getHeight());
+        dto.setLifestyle(appUser.getLifestyle());
         return dto;
     }
 
-    private User mapTo(UserDto dto) {
-        User user = new User();
-        user.setId(dto.getId());
-        user.setLogin(dto.getLogin());
-        user.setPassword(dto.getPassword());
-        user.setEmail(dto.getEmail());
-        user.setDateOfBirth(dto.getDateOfBirth());
-        user.setGender(dto.getGender());
-        user.setHeight(dto.getHeight());
-        user.setLifestyle(dto.getLifestyle());
-        return user;
+    private AppUser mapTo(AppUserDto dto) {
+        AppUser appUser = new AppUser();
+        appUser.setId(dto.getId());
+        appUser.setLogin(dto.getLogin());
+        appUser.setPassword(dto.getPassword());
+        appUser.setEmail(dto.getEmail());
+        appUser.setDateOfBirth(dto.getDateOfBirth());
+        appUser.setGender(dto.getGender());
+        appUser.setHeight(dto.getHeight());
+        appUser.setLifestyle(dto.getLifestyle());
+        return appUser;
     }
 }

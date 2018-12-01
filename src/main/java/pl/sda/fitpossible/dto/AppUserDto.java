@@ -3,13 +3,16 @@ package pl.sda.fitpossible.dto;
 import lombok.Data;
 import pl.sda.fitpossible.entity.Gender;
 import pl.sda.fitpossible.entity.LifestyleType;
+import pl.sda.fitpossible.entity.Weight;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 @Data
-public class UserDto {
+public class AppUserDto {
 
     private Long id;
     @NotBlank
@@ -27,5 +30,7 @@ public class UserDto {
     private Date dateOfBirth;
     @NotNull
     private LifestyleType lifestyle;
+    //@NotNull  ??
+    private Integer weight;
 
 }

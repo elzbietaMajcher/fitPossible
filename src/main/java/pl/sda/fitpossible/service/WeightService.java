@@ -1,11 +1,14 @@
 package pl.sda.fitpossible.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sda.fitpossible.dto.WeightDto;
 import pl.sda.fitpossible.entity.Weight;
-import pl.sda.fitpossible.repository.UserRepository;
 import pl.sda.fitpossible.repository.WeightRepository;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +17,8 @@ public class WeightService {
 
     private WeightRepository weightRepository;
 
-    public WeightService(UserRepository userRepository) {
+    @Autowired
+    public WeightService(WeightRepository weightRepository) {
         this.weightRepository = weightRepository;
     }
 
@@ -30,7 +34,7 @@ public class WeightService {
 
     private WeightDto mapTo(Weight weight) {
         WeightDto weightDto = new WeightDto();
-        weightDto.setId(weight.getId());
+        //weightDto.setId(weight.getId());
         weightDto.setDate(weight.getDate());
         weightDto.setWeight(weight.getWeight());
         return weightDto;
@@ -38,7 +42,7 @@ public class WeightService {
 
     private Weight mapTo(WeightDto weightDto) {
         Weight weight = new Weight();
-        weight.setId(weightDto.getId());
+        //weight.setId(weightDto.getId());
         weight.setDate(weightDto.getDate());
         weight.setWeight(weightDto.getWeight());
         return weight;
