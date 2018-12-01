@@ -14,12 +14,13 @@ public class WeightService {
 
     private WeightRepository weightRepository;
 
-    public WeightService(UserRepository userRepository) {
+    public WeightService(WeightRepository weightRepository) {
         this.weightRepository = weightRepository;
     }
 
     public void add(WeightDto weightDto) {
-        Weight weight = mapTo(weightDto);
+        Weight weight = new Weight();
+        weight = mapTo(weightDto);
         weightRepository.save(weight);
     }
 

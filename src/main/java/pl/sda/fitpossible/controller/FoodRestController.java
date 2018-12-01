@@ -1,8 +1,11 @@
 package pl.sda.fitpossible.controller;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.fitpossible.dto.FoodDto;
 import pl.sda.fitpossible.service.FoodService;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/food")
@@ -13,7 +16,7 @@ public class FoodRestController {
     public FoodRestController(FoodService foodService){this.foodService = foodService;}
 
     @PostMapping("/create")
-    public void create(@RequestBody FoodDto foodDto){
+    public void create(@Valid @RequestBody FoodDto foodDto){
         foodService.createFood(foodDto);
     }
 

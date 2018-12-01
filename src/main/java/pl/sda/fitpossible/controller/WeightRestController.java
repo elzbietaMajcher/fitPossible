@@ -16,7 +16,6 @@ public class WeightRestController {
 
     /*@Autowired*/
     private WeightService weightService;
-
     public WeightRestController(WeightService weightService) {
         this.weightService = weightService;
     }
