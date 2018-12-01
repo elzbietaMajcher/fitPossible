@@ -12,34 +12,34 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class AppUserRestController {
 
-    @Autowired
-    private AppUserService appUserService;
-
-    public AppUserRestController(AppUserService appUserService) {
-        this.appUserService = appUserService;
-    }
-
-    @PostMapping("/create")
-    public void createUser(@Valid @RequestBody AppUserDto dto) {
-        appUserService.create(dto);
-        }
-
-    @GetMapping("/{id}")
-    public AppUserDto getUserById (@PathVariable long id){
-        return appUserService.findUser(id);
-    }
-
-
-    @GetMapping("/all")
-    public List<AppUserDto> findAll() {
-        return appUserService.findAll();
-    }
-
-    @GetMapping(value = "/delete/{id}")  //  zwracanie listy pozostałych?
-    public void deleteUser (@PathVariable long id){
-        appUserService.delete(id);
-
-    }
+//    @Autowired
+//    private AppUserService appUserService;
+//
+//    public AppUserRestController(AppUserService appUserService) {
+//        this.appUserService = appUserService;
+//    }
+//
+//    @PostMapping("/create")
+//    public void createUser(@Valid @RequestBody AppUserDto dto) {
+//        appUserService.create(dto);
+//        }
+//
+//    @GetMapping("/{id}")
+//    public AppUserDto getUserById (@PathVariable long id){
+//        return appUserService.findUser(id);
+//    }
+//
+//
+//    @GetMapping("/all")
+//    public List<AppUserDto> findAll() {
+//        return appUserService.findAll();
+//    }
+//
+//    @GetMapping(value = "/delete/{id}")  //  zwracanie listy pozostałych?
+//    public void deleteUser (@PathVariable long id){
+//        appUserService.delete(id);
+//
+//    }
 
 
 }

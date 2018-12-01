@@ -2,12 +2,15 @@ package pl.sda.fitpossible.entity;
 /*id, login, password, sex, hight, birthDate, status
 -supDATABASE : with history , id, dete, weihgt
 -id dete, status of activity, goals*/
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Data
+@Builder
 @Entity
 @Table(name = "user")
 public class AppUser {
@@ -26,4 +29,7 @@ public class AppUser {
     private LifestyleType lifestyle;
     /*private String firstName;
     private String lastName;*/
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<UserRole> roles;
 }
