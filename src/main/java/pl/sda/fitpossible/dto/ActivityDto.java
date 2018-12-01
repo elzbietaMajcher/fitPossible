@@ -15,7 +15,7 @@ public class ActivityDto {
 
     private Long id;
     @NotBlank
-    private ActivityType activityType;
+    private String activityType;
 
     private int caloriesPerHour;
 

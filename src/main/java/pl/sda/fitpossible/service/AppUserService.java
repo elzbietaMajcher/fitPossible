@@ -1,54 +1,53 @@
 package pl.sda.fitpossible.service;
 
 import org.springframework.stereotype.Service;
-import pl.sda.fitpossible.dto.UserDto;
-import pl.sda.fitpossible.entity.User;
-import pl.sda.fitpossible.repository.UserRepository;
-
+import pl.sda.fitpossible.dto.AppUserDto;
+import pl.sda.fitpossible.entity.AppUser;
+import pl.sda.fitpossible.repository.AppUserRepository;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class AppUserService {
 
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AppUserService(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
     }
 
-    public void create(UserDto dto) {
-        User user = mapTo(dto);
-        userRepository.save(user);
+    public void create(AppUserDto dto) {
+       AppUser user = mapTo(dto);
+        appUserRepository.save(user);
     }
 
-    public UserDto findUser(Long id) {
-        User user = userRepository.findById(id)
+    public AppUserDto findUser(Long id) {
+        AppUser user = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found."));
         return mapTo(user);
     }
 
-    public List<UserDto> findAll() {
-        List<User> users = userRepository.findAll();
+    public List<AppUserDto> findAll() {
+        List<AppUser> users = appUserRepository.findAll();
         return users.stream().map(this::mapTo).collect(Collectors.toList());
     }
 
-    public void update(Long id, UserDto dto) {
-        User user = userRepository.findById(id)
+    public void update(Long id, AppUserDto dto) {
+        AppUser user = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found."));
         user.setPassword(dto.getPassword());
         user.setLifestyle(dto.getLifestyle());
         user.setEmail(dto.getEmail());
-        userRepository.save(user);
+        appUserRepository.save(user);
     }
 
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        appUserRepository.deleteById(id);
     }
 
-    private UserDto mapTo(User user) {
-        UserDto dto = new UserDto();
+    private AppUserDto mapTo(AppUser user) {
+        AppUserDto dto = new AppUserDto();
         dto.setId(user.getId());
         dto.setLogin(user.getLogin());
         dto.setPassword(user.getPassword());
@@ -60,8 +59,8 @@ public class UserService {
         return dto;
     }
 
-    private User mapTo(UserDto dto) {
-        User user = new User();
+    private AppUser mapTo(AppUserDto dto) {
+        AppUser user = new AppUser();
         user.setId(dto.getId());
         user.setLogin(dto.getLogin());
         user.setPassword(dto.getPassword());

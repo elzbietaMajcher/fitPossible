@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 @Data
-public class UserDto {
+public class AppUserDto {
 
     private Long id;
     @NotBlank

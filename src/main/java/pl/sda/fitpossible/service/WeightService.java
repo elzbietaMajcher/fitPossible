@@ -3,7 +3,7 @@ package pl.sda.fitpossible.service;
 import org.springframework.stereotype.Service;
 import pl.sda.fitpossible.dto.WeightDto;
 import pl.sda.fitpossible.entity.Weight;
-import pl.sda.fitpossible.repository.UserRepository;
+import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.WeightRepository;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class WeightService {
 
     private WeightRepository weightRepository;
 
-    public WeightService(UserRepository userRepository) {
+    public WeightService(AppUserRepository userRepository) {
         this.weightRepository = weightRepository;
     }
 
