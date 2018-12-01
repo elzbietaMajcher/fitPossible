@@ -1,7 +1,6 @@
 package pl.sda.fitpossible.dto;
 
 import lombok.Data;
-import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

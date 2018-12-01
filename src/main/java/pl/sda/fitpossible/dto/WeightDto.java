@@ -1,15 +1,18 @@
 package pl.sda.fitpossible.dto;
 
-import javax.validation.constraints.NotEmpty;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+@Data
 
 public class WeightDto {
 
-    @NotEmpty
+
     private Long id;
-    @NotEmpty
+   /* @NotNull*/
     private Date date;
-    @NotEmpty
+    @NotNull
     private Integer weight;
 
 }
