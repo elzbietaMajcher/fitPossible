@@ -6,6 +6,10 @@ import pl.sda.fitpossible.dto.ActivityHistoryDto;
 import pl.sda.fitpossible.entity.ActivityHistory;
 import pl.sda.fitpossible.repository.ActivityHistoryRepository;
 
+import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 @Service
 public class ActivityHistoryService {
 
@@ -17,9 +21,23 @@ public class ActivityHistoryService {
         this.activityHistoryRepository = activityHistoryRepository;
     }
 
-    public void addActivityHistory(ActivityHistoryDto activityHistoryDto) {
+    public void addActivity(ActivityHistoryDto activityHistoryDto) {
         ActivityHistory activityHistory = mapTo(activityHistoryDto);
         activityHistoryRepository.save(activityHistory);
+    }
+
+    public void startActivity(ActivityHistoryDto activityHistoryDto){
+        ActivityHistory activityHistory = mapTo(activityHistoryDto);
+        activityHistoryRepository.save(activityHistory);
+    }
+
+    public void stopActivity(Long id) {
+        Optional<ActivityHistory> activity = activityHistoryRepository.findById(id);
+        ActivityHistory currentActivity = activity.orElseThrow(() -> new EntityNotFoundException("Activity not foung " + id));
+        LocalDateTime time = LocalDateTime.now();
+        currentActivity.setFinishTime(time);
+
+        activityHistoryRepository.save(currentActivity);
     }
 
     private ActivityHistoryDto mapTo(ActivityHistory activityHistory) {
@@ -27,6 +45,8 @@ public class ActivityHistoryService {
         activityHistoryDto.setActivityType(activityHistory.getActivityType());
         activityHistoryDto.setCaloriesPerHour(activityHistory.getCaloriesPerHour());
         activityHistoryDto.setCaloriesPerRep(activityHistory.getCaloriesPerRep());
+        //activityHistoryDto.setTime(activityHistory.getTime());
+        activityHistoryDto.setReps(activityHistory.getReps());
         return activityHistoryDto;
     }
 
@@ -35,6 +55,8 @@ public class ActivityHistoryService {
         activityHistory.setActivityType(activityHistoryDto.getActivityType());
         activityHistory.setCaloriesPerHour(activityHistoryDto.getCaloriesPerHour());
         activityHistory.setCaloriesPerRep(activityHistoryDto.getCaloriesPerRep());
+        //activityHistory.setTime(activityHistoryDto.getTime());
+        activityHistory.setReps(activityHistoryDto.getReps());
         return activityHistory;
     }
 }

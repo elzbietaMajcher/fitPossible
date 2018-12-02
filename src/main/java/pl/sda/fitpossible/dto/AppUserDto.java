@@ -19,17 +19,15 @@ public class AppUserDto {
     @NotBlank
     private String password;
     @Email
-    @NotBlank
     private String email;
-    @NotNull
+
     private Gender gender;
-    @NotNull
+
     private Integer height;
-    @NotNull
+
     private Date dateOfBirth;
-    @NotNull
+
     private LifestyleType lifestyle;
-    //@NotNull  ??
-    private Integer weight;
+
 
 }

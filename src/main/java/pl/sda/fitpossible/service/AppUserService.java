@@ -23,24 +23,11 @@ public class AppUserService {
         this.weightRepository = weightRepository;
     }
 
-    private void saveWeight(AppUserDto appUserDto, AppUser appUser){
-        Weight weight = getWeight(appUserDto,appUser);
 
-        weightRepository.save(weight);
-    }
-
-    private Weight getWeight(AppUserDto appUserDto, AppUser appUser) {
-        Weight weight = new Weight();
-        weight.setWeight(appUserDto.getWeight());
-        weight.setUser(appUser);
-        return weight;
-    }
 
     public void create(AppUserDto dto) {
         AppUser appUser = mapTo(dto);
         appUserRepository.save(appUser);
-
-        saveWeight(dto, appUser);
     }
 
     public AppUserDto findUser(Long id) {

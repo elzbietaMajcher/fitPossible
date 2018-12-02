@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class NutritionHistoryDto {
 
-    private Long id;
+    private Long user_id;
     @NotBlank
     private String name;
     @NotNull
