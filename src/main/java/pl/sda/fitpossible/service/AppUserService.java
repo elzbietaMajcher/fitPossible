@@ -25,6 +25,7 @@ public class AppUserService {
 
     private void saveWeight(AppUserDto appUserDto, AppUser appUser){
         Weight weight = getWeight(appUserDto,appUser);
+
         weightRepository.save(weight);
     }
 

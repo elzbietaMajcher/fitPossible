@@ -6,9 +6,6 @@ import pl.sda.fitpossible.dto.WeightDto;
 import pl.sda.fitpossible.entity.Weight;
 import pl.sda.fitpossible.repository.WeightRepository;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +19,7 @@ public class WeightService {
         this.weightRepository = weightRepository;
     }
 
-    public void add(WeightDto weightDto) {
+    public void addWeight(WeightDto weightDto) {
         Weight weight = mapTo(weightDto);
         weightRepository.save(weight);
     }

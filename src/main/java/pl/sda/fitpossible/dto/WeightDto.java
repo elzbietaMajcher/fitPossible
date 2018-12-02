@@ -15,6 +15,6 @@ public class WeightDto {
     private Date date;
     @NotNull
     private Integer weight;
-    @NotNull
-    private Long ownerId;
+    /*@NotNull
+    private Long ownerId;*/
 }

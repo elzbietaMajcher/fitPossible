@@ -32,7 +32,15 @@ public class AppUser implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "owner_id")
-    private Collection<Weight> weightMeasurements = new ArrayList<>();
+    private Collection<Weight> weightMeasurements;
+
+    @OneToMany
+    @JoinColumn(name = "owner_id")
+    private Collection<Food> nutritionHistory;
+
+    @OneToMany
+    @JoinColumn (name = "user_id")
+    private Collection<Activity> activityHistory;
 
 
 }
