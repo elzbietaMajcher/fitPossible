@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Data
-@Builder
+
 @Entity
 @Table(name = "user")
 public class AppUser {
@@ -20,15 +20,7 @@ public class AppUser {
     private Long id;
     private String login;
     private String password;
-    private String email;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-    private Integer height;
-    private Date dateOfBirth;
-    @Enumerated(EnumType.STRING)
-    private LifestyleType lifestyle;
-    /*private String firstName;
-    private String lastName;*/
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles;

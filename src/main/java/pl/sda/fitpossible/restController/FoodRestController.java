@@ -1,4 +1,4 @@
-package pl.sda.fitpossible.controller;
+package pl.sda.fitpossible.restController;
 
 import org.springframework.web.bind.annotation.*;
 import pl.sda.fitpossible.dto.FoodDto;
