@@ -7,6 +7,6 @@ import pl.sda.fitpossible.entity.Weight;
 import java.util.List;
 
 public interface WeightRepository extends JpaRepository<Weight, Long> {
-    List<Weight>findAllByOwner(AppUser owner);
+    List<Weight>findAllByUser(AppUser owner);
 
 }

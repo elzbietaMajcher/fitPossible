@@ -13,13 +13,12 @@ public class ActivityHistoryService {
     private ActivityHistoryRepository activityHistoryRepository;
 
     @Autowired
-
     public ActivityHistoryService(ActivityHistoryRepository activityHistoryRepository) {
         this.activityHistoryRepository = activityHistoryRepository;
     }
 
     public void addActivityHistory(ActivityHistoryDto activityHistoryDto) {
-        ActivityHistory activityHistory =mapTo(activityHistoryDto);
+        ActivityHistory activityHistory = mapTo(activityHistoryDto);
         activityHistoryRepository.save(activityHistory);
     }
 

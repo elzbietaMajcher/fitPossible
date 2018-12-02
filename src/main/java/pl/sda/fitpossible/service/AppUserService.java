@@ -32,7 +32,7 @@ public class AppUserService {
     private Weight getWeight(AppUserDto appUserDto, AppUser appUser) {
         Weight weight = new Weight();
         weight.setWeight(appUserDto.getWeight());
-        weight.setOwner(appUser);
+        weight.setUser(appUser);
         return weight;
     }
 
@@ -47,6 +47,9 @@ public class AppUserService {
         AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
         return mapTo(appUser);
+    }
+    public AppUser find(Long id){
+        return appUserRepository.getOne(id);
     }
 
     public List<AppUserDto> findAll() {

@@ -1,4 +1,4 @@
-package pl.sda.fitpossible.controller;
+package pl.sda.fitpossible.restController;
 
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.web.bind.annotation.*;
@@ -21,6 +21,7 @@ public class WeightRestController {
 
     @PostMapping("/add")
     public void addWeight(@Valid @RequestBody WeightDto weightDto) {
+
         weightService.addWeight(weightDto);
 
     }

@@ -21,7 +21,6 @@ public class Weight implements Serializable {
     private Integer weight;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private AppUser owner;
+    private AppUser user;
 
 }

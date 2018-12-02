@@ -30,17 +30,14 @@ public class AppUser implements Serializable {
     @Enumerated(EnumType.STRING)
     private LifestyleType lifestyle;
 
-    @OneToMany
-    @JoinColumn(name = "owner_id")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Collection<Weight> weightMeasurements;
 
-    @OneToMany
-    @JoinColumn(name = "owner_id")
-    private Collection<Food> nutritionHistory;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Collection<NutritionHistory> nutritionHistory ;
 
-    @OneToMany
-    @JoinColumn (name = "user_id")
-    private Collection<Activity> activityHistory;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Collection<ActivityHistory> activityHistory;
 
 
 }

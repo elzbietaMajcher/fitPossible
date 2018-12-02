@@ -1,7 +1,6 @@
 package pl.sda.fitpossible.dto;
 
 import lombok.Data;
-import pl.sda.fitpossible.entity.AppUser;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -9,12 +8,10 @@ import java.util.Date;
 
 public class WeightDto {
 
-
-    private Long id;
+    private Long user_id;
     @NotNull
     private Date date;
     @NotNull
     private Integer weight;
-    /*@NotNull
-    private Long ownerId;*/
+
 }
