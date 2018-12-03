@@ -51,6 +51,9 @@ public class AppUserService {
         appUserRepository.save(user);
     }
 
+//
+
+
     public AppUserDto findUser(Long id) {
         AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
