@@ -24,8 +24,13 @@ public class UserWebController {
     }
 
     @PostMapping ("/register")
-    public void register (@Valid @ModelAttribute ("user") AppUserDto appUserDto){
+    public String register (@Valid @ModelAttribute ("user") AppUserDto appUserDto){
         appUserService.create(appUserDto);
+        return "redirect:login";
     }
-
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+        model.addAttribute("formObject", new AppUserDto());
+        return "login";
+    }
 }

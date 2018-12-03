@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserDetailsService authenticationService;
+    private UserDetailsService userAuthenticationService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/",
                         "/register",
-                        "/login").permitAll()
+                        "/login")
+                .permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**", "/order/**").hasRole("USER")
                 .and().formLogin().loginPage("/login")
@@ -46,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
         provider.setPasswordEncoder(passwordEncoder);
-        provider.setUserDetailsService(authenticationService);
+        provider.setUserDetailsService(userAuthenticationService);
 
         return provider;
     }

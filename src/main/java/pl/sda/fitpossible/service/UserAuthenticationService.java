@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AuthorizationService implements UserDetailsService {
+public class UserAuthenticationService implements UserDetailsService {
 
     @Autowired
     private AppUserRepository appUserRepository;

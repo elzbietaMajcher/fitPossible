@@ -1,14 +1,18 @@
 package pl.sda.fitpossible.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sda.fitpossible.dto.AppUserDto;
 import pl.sda.fitpossible.entity.AppUser;
+import pl.sda.fitpossible.entity.UserRole;
 import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.UserRoleRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,10 +25,20 @@ public class AppUserService {
     }
 
     @Autowired
-    public UserRoleRepository userRoleRepository;
+    private PasswordEncoder passwordEncoder;
+
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
+    @Autowired
+    private AppUserRoleService appUserRoleService;
 
     public void create(AppUserDto dto) {
-        AppUser user = mapTo(dto);
+        AppUser user = new AppUser();
+        user.setLogin(dto.getLogin());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setRoles(appUserRoleService.getDefaultUserRoles());
         appUserRepository.save(user);
     }
 
