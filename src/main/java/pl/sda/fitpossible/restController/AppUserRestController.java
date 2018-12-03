@@ -35,9 +35,9 @@ public class AppUserRestController {
         return appUserService.findAll();
     }
 
-    @GetMapping(value = "/delete/{id}")  //  zwracanie listy pozostałych?
-    public void deleteUser (@PathVariable long id){
-        appUserService.delete(id);
+    @GetMapping(value = "/delete/{login}")  //  zwracanie listy pozostałych?
+    public void deleteUser (@PathVariable String login){
+        appUserService.delete(login);
 
     }
 

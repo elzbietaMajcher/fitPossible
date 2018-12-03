@@ -1,26 +1,21 @@
 package pl.sda.fitpossible.entity;
 
 import lombok.Data;
-import pl.sda.fitpossible.dto.AppUserDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.util.Date;
-
 @Data
 @Entity
-@Table(name = "weight")
-public class Weight implements Serializable {
-
+@Table(name = "nutrition_history")
+public class NutritionHistory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Date date;
-    private Integer weight;
+    private String name;
+    private Integer caloriesPerUnit;
+    private String unit;
 
     @ManyToOne
     private AppUser user;
-
 }

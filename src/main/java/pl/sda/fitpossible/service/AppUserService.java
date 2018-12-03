@@ -8,6 +8,11 @@ import pl.sda.fitpossible.entity.AppUser;
 import pl.sda.fitpossible.entity.UserRole;
 import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.UserRoleRepository;
+import pl.sda.fitpossible.dto.AppUserDto;
+import pl.sda.fitpossible.entity.AppUser;
+import pl.sda.fitpossible.entity.Weight;
+import pl.sda.fitpossible.repository.AppUserRepository;
+import pl.sda.fitpossible.repository.WeightRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.HashSet;
@@ -20,8 +25,12 @@ public class AppUserService {
 
     private AppUserRepository appUserRepository;
 
-    public AppUserService(AppUserRepository appUserRepository) {
+    private WeightRepository weightRepository;
+
+    public AppUserService(AppUserRepository appUserRepository,
+                          WeightRepository weightRepository) {
         this.appUserRepository = appUserRepository;
+        this.weightRepository = weightRepository;
     }
 
     @Autowired
@@ -43,41 +52,55 @@ public class AppUserService {
     }
 
     public AppUserDto findUser(Long id) {
-        AppUser user = appUserRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found."));
-        return mapTo(user);
+        AppUser appUser = appUserRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
+        return mapTo(appUser);
+    }
+    public AppUser find(Long id){
+        return appUserRepository.getOne(id);
     }
 
     public List<AppUserDto> findAll() {
-        List<AppUser> users = appUserRepository.findAll();
-        return users.stream().map(this::mapTo).collect(Collectors.toList());
+        List<AppUser> appUsers = appUserRepository.findAll();
+        return appUsers.stream().map(this::mapTo).collect(Collectors.toList());
     }
 
     public void update(Long id, AppUserDto dto) {
-        AppUser user = appUserRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found."));
-        user.setPassword(dto.getPassword());
-        appUserRepository.save(user);
+        AppUser appUser = appUserRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
+        appUser.setPassword(dto.getPassword());
+        appUser.setLifestyle(dto.getLifestyle());
+        appUser.setEmail(dto.getEmail());
+        appUserRepository.save(appUser);
     }
 
-    public void delete(Long id) {
-        appUserRepository.deleteById(id);
+    public void delete(String login) {
+        appUserRepository.deleteByLogin(login);
     }
 
-    private AppUserDto mapTo(AppUser user) {
+    private AppUserDto mapTo(AppUser appUser) {
         AppUserDto dto = new AppUserDto();
 
-        dto.setLogin(user.getLogin());
-        dto.setPassword(user.getPassword());
+        dto.setLogin(appUser.getLogin());
+        dto.setPassword(appUser.getPassword());
+        dto.setEmail(appUser.getEmail());
+        dto.setDateOfBirth(appUser.getDateOfBirth());
+        dto.setGender(appUser.getGender());
+        dto.setHeight(appUser.getHeight());
+        dto.setLifestyle(appUser.getLifestyle());
         return dto;
     }
 
     private AppUser mapTo(AppUserDto dto) {
-        AppUser user = new AppUser();
-        user.setLogin(dto.getLogin());
-        user.setPassword(dto.getPassword());
-        return user;
+        AppUser appUser = new AppUser();
+
+        appUser.setLogin(dto.getLogin());
+        appUser.setPassword(dto.getPassword());
+        appUser.setEmail(dto.getEmail());
+        appUser.setDateOfBirth(dto.getDateOfBirth());
+        appUser.setGender(dto.getGender());
+        appUser.setHeight(dto.getHeight());
+        appUser.setLifestyle(dto.getLifestyle());
+        return appUser;
     }
-
-
 }

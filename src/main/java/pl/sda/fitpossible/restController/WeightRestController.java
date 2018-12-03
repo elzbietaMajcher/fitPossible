@@ -22,6 +22,6 @@ public class WeightRestController {
 
     @PostMapping("/add")
     public void addWeight(@Valid @RequestBody WeightDto weightDto) {
-        weightService.add(weightDto);
+        weightService.addWeight(weightDto);
     }
 }

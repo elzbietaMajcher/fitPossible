@@ -8,9 +8,8 @@ import java.util.Date;
 
 public class WeightDto {
 
-
-    private Long id;
-   /* @NotNull*/
+    private Long user_id;
+    @NotNull
     private Date date;
     @NotNull
     private Integer weight;
