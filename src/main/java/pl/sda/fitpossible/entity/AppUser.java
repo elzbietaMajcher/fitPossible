@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.security.AuthProvider;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,4 +25,6 @@ public class AppUser {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles;
+
+
 }

@@ -21,8 +21,4 @@ public class AppUserDto {
     @NotBlank
     private String password;
 
-//
-//
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    private Set<UserRole> roles;
 }

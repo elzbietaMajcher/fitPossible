@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AuthenticationService implements UserDetailsService {
+public class AuthorizationService implements UserDetailsService {
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -27,7 +27,7 @@ public class AuthenticationService implements UserDetailsService {
 
             List<String> roles = appUser.getRoles()
                     .stream()
-                    .map(userRole -> userRole.getName().replace("ROLE_", ""))
+                    .map(userRole -> userRole.getRoleName().replace("ROLE_", ""))
                     .collect(Collectors.toList());
 
             return User.builder()
