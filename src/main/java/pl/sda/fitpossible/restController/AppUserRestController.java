@@ -22,13 +22,23 @@ public class AppUserRestController {
     @PostMapping("/create")
     public void createUser(@Valid @RequestBody AppUserDto dto) {
         appUserService.create(dto);
-        }
+    }
+
+    @PostMapping("/update/{login}")
+    public void updateUser(@Valid @RequestBody AppUserDto dto, @PathVariable String login) {
+        appUserService.findUser(login);
+        appUserService.update(login,dto);
+    }
 
     @GetMapping("/{id}")
-    public AppUserDto getUserById (@PathVariable long id){
+    public AppUserDto getUserById(@PathVariable long id) {
         return appUserService.findUser(id);
     }
 
+    @GetMapping("/{login}")
+    public AppUserDto getUserByLogin(@PathVariable String login) {
+        return appUserService.findUser(login);
+    }
 
     @GetMapping("/all")
     public List<AppUserDto> findAll() {
@@ -36,7 +46,7 @@ public class AppUserRestController {
     }
 
     @GetMapping(value = "/delete/{login}")  //  zwracanie listy pozostałych?
-    public void deleteUser (@PathVariable String login){
+    public void deleteUser(@PathVariable String login) {
         appUserService.delete(login);
 
     }

@@ -38,18 +38,18 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private void createInitialUsers() {
         addUser("admin", "admin", "ROLE_USER", "ROLE_ADMIN");
         addUser("user", "user", "ROLE_USER");
-}
+    }
 
     private void addUser(String login, String password, String... roles) {
         Set<UserRole> userRoles = new HashSet<>();
         for (String role : roles) {
             Optional<UserRole> singleRole = userRoleRepository.findByRoleName(role);
-            if (singleRole.isPresent()){
+            if (singleRole.isPresent()) {
                 userRoles.add(singleRole.get());
             }
         }
         Optional<AppUser> searchedAppUser = appUserRepository.findByLogin(login);
-        if (!searchedAppUser.isPresent()){
+        if (!searchedAppUser.isPresent()) {
             AppUser appUser = new AppUser();
             appUser.setLogin(login);
             appUser.setPassword(passwordEncoder.encode(password));

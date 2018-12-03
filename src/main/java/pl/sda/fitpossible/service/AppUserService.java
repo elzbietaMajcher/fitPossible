@@ -5,43 +5,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sda.fitpossible.dto.AppUserDto;
 import pl.sda.fitpossible.entity.AppUser;
-import pl.sda.fitpossible.entity.UserRole;
 import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.UserRoleRepository;
-import pl.sda.fitpossible.dto.AppUserDto;
-import pl.sda.fitpossible.entity.AppUser;
-import pl.sda.fitpossible.entity.Weight;
-import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.WeightRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class AppUserService {
-
-    private AppUserRepository appUserRepository;
-
-    private WeightRepository weightRepository;
-
-    public AppUserService(AppUserRepository appUserRepository,
-                          WeightRepository weightRepository) {
-        this.appUserRepository = appUserRepository;
-        this.weightRepository = weightRepository;
-    }
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     @Autowired
     private UserRoleRepository userRoleRepository;
 
     @Autowired
     private AppUserRoleService appUserRoleService;
+
+    private AppUserRepository appUserRepository;
+
+    public AppUserService(AppUserRepository appUserRepository,
+                          WeightRepository weightRepository) {
+        this.appUserRepository = appUserRepository;
+    }
 
     public void create(AppUserDto dto) {
         AppUser user = new AppUser();
@@ -51,15 +39,20 @@ public class AppUserService {
         appUserRepository.save(user);
     }
 
-//
-
 
     public AppUserDto findUser(Long id) {
         AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
         return mapTo(appUser);
     }
-    public AppUser find(Long id){
+
+    public AppUserDto findUser(String login) {
+        AppUser appUser = appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
+        return mapTo(appUser);
+    }
+
+    public AppUser find(Long id) {
         return appUserRepository.getOne(id);
     }
 
@@ -68,12 +61,15 @@ public class AppUserService {
         return appUsers.stream().map(this::mapTo).collect(Collectors.toList());
     }
 
-    public void update(Long id, AppUserDto dto) {
-        AppUser appUser = appUserRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
-        appUser.setPassword(dto.getPassword());
-        appUser.setLifestyle(dto.getLifestyle());
+    public void update(String login, AppUserDto dto) {
+        AppUser appUser = appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
+        appUser.setPassword(passwordEncoder.encode(dto.getPassword()));
         appUser.setEmail(dto.getEmail());
+        appUser.setDateOfBirth(dto.getDateOfBirth());
+        appUser.setGender(dto.getGender());
+        appUser.setHeight(dto.getHeight());
+        appUser.setLifestyle(dto.getLifestyle());
         appUserRepository.save(appUser);
     }
 

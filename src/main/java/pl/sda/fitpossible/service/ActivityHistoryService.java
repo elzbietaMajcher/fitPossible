@@ -28,15 +28,14 @@ public class ActivityHistoryService {
 
     public void startActivity(ActivityHistoryDto activityHistoryDto){
         ActivityHistory activityHistory = mapTo(activityHistoryDto);
+        activityHistory.setStartTime(LocalDateTime.now());
         activityHistoryRepository.save(activityHistory);
     }
 
     public void stopActivity(Long id) {
         Optional<ActivityHistory> activity = activityHistoryRepository.findById(id);
-        ActivityHistory currentActivity = activity.orElseThrow(() -> new EntityNotFoundException("Activity not foung " + id));
-        LocalDateTime time = LocalDateTime.now();
-        currentActivity.setFinishTime(time);
-
+        ActivityHistory currentActivity = activity.orElseThrow(() -> new EntityNotFoundException("Activity not found " + id));
+        currentActivity.setFinishTime(LocalDateTime.now());
         activityHistoryRepository.save(currentActivity);
     }
 
