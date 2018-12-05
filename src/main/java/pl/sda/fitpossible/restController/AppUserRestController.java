@@ -3,6 +3,7 @@ package pl.sda.fitpossible.restController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.fitpossible.dto.AppUserDto;
+import pl.sda.fitpossible.dto.AuthorizationUserData;
 import pl.sda.fitpossible.service.AppUserService;
 
 import javax.validation.Valid;
@@ -20,8 +21,8 @@ public class AppUserRestController {
     }
 
     @PostMapping("/create")
-    public void createUser(@Valid @RequestBody AppUserDto dto) {
-        appUserService.create(dto);
+    public void createUser(@Valid @RequestBody AuthorizationUserData authorizationUserData) {
+        appUserService.registry(authorizationUserData);
         }
 
     @GetMapping("/{id}")

@@ -22,24 +22,6 @@ public class AppUser implements Serializable {
     private Long id;
     private String login;
     private String password;
-    private String email;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-    private Integer height;
-    private Date dateOfBirth;
-    @Enumerated(EnumType.STRING)
-    private LifestyleType lifestyle;
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Collection<Weight> weightMeasurements;
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Collection<NutritionHistory> nutritionHistory ;
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Collection<ActivityHistory> activityHistory;
-
-
 
 
     @ManyToMany(fetch = FetchType.EAGER)
