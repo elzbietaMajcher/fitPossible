@@ -31,7 +31,7 @@ public class AppUserService {
         this.appUserRepository = appUserRepository;
     }
 
-    public void create(AppUserDto dto) {
+    public void create(AppUserDto dto) { //ok
         AppUser user = new AppUser();
         user.setLogin(dto.getLogin());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
@@ -40,25 +40,27 @@ public class AppUserService {
     }
 
 
-    public AppUserDto findUser(Long id) {
+   /* public AppUserDto findUser(Long id) {
         AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
         return mapTo(appUser);
-    }
+    }*/
 
-    public AppUserDto findUser(String login) {
+    public AppUser findUser(String login) {  //??
         AppUser appUser = appUserRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
-        return mapTo(appUser);
+        return appUser;
     }
 
-    public AppUser find(Long id) {
+    public AppUser findUser(Long id) {AppUser appUser = appUserRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
         return appUserRepository.getOne(id);
     }
 
-    public List<AppUserDto> findAll() {
+    public List<AppUser> findAll() {  //ok
         List<AppUser> appUsers = appUserRepository.findAll();
         return appUsers.stream().map(this::mapTo).collect(Collectors.toList());
+        /* appUsers.stream().map(this::mapTo).collect(Collectors.toList());*/
     }
 
     public void update(String login, AppUserDto dto) {

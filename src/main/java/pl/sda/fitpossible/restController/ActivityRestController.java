@@ -7,11 +7,12 @@ import pl.sda.fitpossible.service.ActivityService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping (value = "/activites")
+@RequestMapping (value = "/activities")
 public class ActivityRestController {
 
     private ActivityService activityService;
-    public ActivityRestController(ActivityService activityService) {this.activityService = activityService;}
+    public ActivityRestController(ActivityService activityService) {
+        this.activityService = activityService;}
 
     @PostMapping ("/create")
     public void crateActivity (@Valid @RequestBody ActivityDto activityDto){
@@ -28,9 +29,9 @@ public class ActivityRestController {
         activityService.findActivity(id);
     }
 
-    @PutMapping ("/update/{id}")
-    public void updateActivity(@Valid @RequestBody ActivityDto activityDto, @RequestParam Long id){
-        activityService.update(id, activityDto);
+    @PutMapping ("/update/{id}")  // ??
+    public void updateActivity(/*@Valid @RequestBody ActivityDto activityDto,*/ @RequestParam Long id){
+        activityService.update(id/*, activityDto*/);
     }
 
     @DeleteMapping("/delete/{id}")

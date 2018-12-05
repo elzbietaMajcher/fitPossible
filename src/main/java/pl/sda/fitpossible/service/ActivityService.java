@@ -20,21 +20,21 @@ public class ActivityService {
         activityRepository.save(activity);
     }
 
-    public ActivityDto findActivity (Long id){
+    public ActivityDto findActivity (Long id){//??
         Activity activity = activityRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Activity not found."));
         return mapTo(activity);
     }
 
-    public List<ActivityDto> findAll (){
-        List<Activity> activites = activityRepository.findAll();
-        return activites.stream().map(this::mapTo).collect(Collectors.toList());
+    public List<Activity> findAll (){ //??
+        List<Activity> activities = activityRepository.findAll();
+        return activities.stream().map(this::mapTo).collect(Collectors.toList());
     }
 
-    public void update (Long id, ActivityDto activityDto){
+    public void update (Long id/*, ActivityDto activityDto*/){
         Activity activity = activityRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Activity not found."));
-        activity= mapTo(activityDto);
+        //activity= mapTo(activityDto);
         activityRepository.save(activity);
     }
 
@@ -44,6 +44,7 @@ public class ActivityService {
 
     private Activity mapTo(ActivityDto activityDto){
         Activity activity = new Activity();
+        activity.setId(activityDto.getId());
         activity.setActivityType(activityDto.getActivityType());
         activity.setCaloriesPerHour(activityDto.getCaloriesPerHour());
         activity.setCaloriesPerRep(activityDto.getCaloriesPerRep());

@@ -18,8 +18,7 @@ public class FoodService {
     public FoodService(FoodRepository foodRepository){this.foodRepository = foodRepository;}
 
     public void createFood(FoodDto foodDto){
-        Food food = new Food();
-        food = mapTo(foodDto);
+        Food food = mapTo(foodDto);
         foodRepository.save(food);
     }
 

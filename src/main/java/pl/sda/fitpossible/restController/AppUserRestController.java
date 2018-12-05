@@ -3,6 +3,7 @@ package pl.sda.fitpossible.restController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.fitpossible.dto.AppUserDto;
+import pl.sda.fitpossible.entity.AppUser;
 import pl.sda.fitpossible.service.AppUserService;
 
 import javax.validation.Valid;
@@ -19,33 +20,33 @@ public class AppUserRestController {
         this.appUserService = appUserService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create") //ok
     public void createUser(@Valid @RequestBody AppUserDto dto) {
         appUserService.create(dto);
     }
 
-    @PostMapping("/update/{login}")
-    public void updateUser(@Valid @RequestBody AppUserDto dto, @PathVariable String login) {
+    @PutMapping("/update/{login}") // ok
+    public void updateUser( @RequestBody AppUserDto dto, @PathVariable String login) {
         appUserService.findUser(login);
         appUserService.update(login,dto);
     }
 
-    @GetMapping("/{id}")
-    public AppUserDto getUserById(@PathVariable long id) {
-        return appUserService.findUser(id);
+    @GetMapping("/{id}") //??
+    public void getUserById(@PathVariable long id) {
+        appUserService.findUser(id);
     }
 
-    @GetMapping("/{login}")
-    public AppUserDto getUserByLogin(@PathVariable String login) {
-        return appUserService.findUser(login);
+    @GetMapping("/{login}")  //??
+    public void getUserByLogin(@PathVariable String login) {
+        appUserService.findUser(login);
     }
 
-    @GetMapping("/all")
-    public List<AppUserDto> findAll() {
+    @GetMapping("/all")//ok
+    public List<AppUser> findAll() {
         return appUserService.findAll();
     }
 
-    @GetMapping(value = "/delete/{login}")  //  zwracanie listy pozostałych?
+    @GetMapping(value = "/delete/{login}")  //??
     public void deleteUser(@PathVariable String login) {
         appUserService.delete(login);
 
