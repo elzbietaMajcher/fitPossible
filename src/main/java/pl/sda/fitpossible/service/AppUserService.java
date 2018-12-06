@@ -91,6 +91,7 @@ public class AppUserService {
         appUserRepository.delete(userToDelete);
     }
 
+
     private AppUserDto mapTo(AppUser appUser) {
         AppUserDto dto = new AppUserDto();
 

@@ -30,7 +30,7 @@ public class WeightService {
 
     public void addWeight(WeightDto weightDto, String login) {
         Weight weight = mapTo(weightDto);
-        AppUser owner =findUser(login);
+        AppUser owner = findUser(login);
         weight.setUser(owner);
         weightRepository.save(weight);
     }
@@ -40,7 +40,7 @@ public class WeightService {
         return weightHistory.stream().map(this::mapTo).collect(Collectors.toList());
     }
 
-    private AppUser findUser(String login) {
+    private AppUser findUser(String login) { // jak wyniesc te metode aby ja uwspolnic
         return appUserRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
 

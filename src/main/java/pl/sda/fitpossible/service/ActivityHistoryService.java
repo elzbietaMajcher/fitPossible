@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sda.fitpossible.dto.ActivityHistoryDto;
 import pl.sda.fitpossible.entity.ActivityHistory;
+import pl.sda.fitpossible.entity.AppUser;
 import pl.sda.fitpossible.repository.ActivityHistoryRepository;
+import pl.sda.fitpossible.repository.AppUserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -15,19 +17,25 @@ public class ActivityHistoryService {
 
 
     private ActivityHistoryRepository activityHistoryRepository;
+    @Autowired
+    private AppUserRepository appUserRepository;
 
     @Autowired
     public ActivityHistoryService(ActivityHistoryRepository activityHistoryRepository) {
         this.activityHistoryRepository = activityHistoryRepository;
     }
 
-    public void addActivity(ActivityHistoryDto activityHistoryDto) {
+    public void addActivity(ActivityHistoryDto activityHistoryDto, String login) {
         ActivityHistory activityHistory = mapTo(activityHistoryDto);
+        AppUser owner = findUser(login);
+        activityHistory.setUser(owner);
         activityHistoryRepository.save(activityHistory);
     }
 
-    public void startActivity(ActivityHistoryDto activityHistoryDto){
+    public void startActivity(ActivityHistoryDto activityHistoryDto,  String login) {
         ActivityHistory activityHistory = mapTo(activityHistoryDto);
+        AppUser owner = findUser(login);
+        activityHistory.setUser(owner);
         activityHistory.setStartTime(LocalDateTime.now());
         activityHistoryRepository.save(activityHistory);
     }
@@ -37,6 +45,12 @@ public class ActivityHistoryService {
         ActivityHistory currentActivity = activity.orElseThrow(() -> new EntityNotFoundException("Activity not found " + id));
         currentActivity.setFinishTime(LocalDateTime.now());
         activityHistoryRepository.save(currentActivity);
+    }
+
+    private AppUser findUser(String login) { // jak wyniesc te metode aby ja uwspolnic
+        return appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
+
     }
 
     private ActivityHistoryDto mapTo(ActivityHistory activityHistory) {

@@ -15,14 +15,14 @@ public class NutritionHistoryRestController {
         this.nutritionHistoryService = nutritionHistoryService;
     }
 
-    @PostMapping("/add")  // ok
-    public void addNutrition(@RequestBody NutritionHistoryDto nutritionHistoryDto) {
-        nutritionHistoryService.createNutritionHistory(nutritionHistoryDto);
+    @PostMapping("/add/{login}")  // ok
+    public void addNutrition(@RequestBody NutritionHistoryDto nutritionHistoryDto,@PathVariable String login) {
+        nutritionHistoryService.createNutritionHistory(nutritionHistoryDto, login);
     }
 
-    @GetMapping("/all")  // ok
-    public List<NutritionHistoryDto> findAll() {
-        return nutritionHistoryService.findAll();
+    @GetMapping("/all/{login}")  // ok
+    public List<NutritionHistoryDto> getNutritionHistoryByLogin( @PathVariable String login) {
+        return nutritionHistoryService.findAll(login);
     }
 
     @PutMapping("/update/{id}")  // ok
