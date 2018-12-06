@@ -25,7 +25,7 @@ public class NutritionHistoryRestController {
         return nutritionHistoryService.findAll();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}")  // ok
     public void updateMealTime (@RequestBody NutritionHistoryDto nutritionHistoryDto, @PathVariable Long id){
         nutritionHistoryService.findOneMeal(id);
         nutritionHistoryService.update(id, nutritionHistoryDto);

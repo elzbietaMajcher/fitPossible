@@ -7,42 +7,49 @@ import pl.sda.fitpossible.repository.ActivityRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ActivityService {
 
     private ActivityRepository activityRepository;
-    public ActivityService  (ActivityRepository activityRepository){this.activityRepository = activityRepository;}
 
-    public void create (ActivityDto activityDto){
+    public ActivityService(ActivityRepository activityRepository) {
+        this.activityRepository = activityRepository;
+    }
+
+    public void create(ActivityDto activityDto) {
         Activity activity = mapTo(activityDto);
         activityRepository.save(activity);
     }
 
-    public ActivityDto findActivity (Long id){//??
+    public ActivityDto findActivity(Long id) {//??
         Activity activity = activityRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Activity not found."));
         return mapTo(activity);
     }
 
-    public List<ActivityDto> findAll (){ //??
+    public List<ActivityDto> findAll() { //??
         List<Activity> activities = activityRepository.findAll();
         return activities.stream().map(this::mapTo).collect(Collectors.toList());
     }
 
-    public void update (Long id/*, ActivityDto activityDto*/){
-        Activity activity = activityRepository.findById(id)
+    public void updateActivity(Long id, ActivityDto activityDto) {
+        Optional<Activity> activity = activityRepository.findById(id);
+        Activity activityToUpdate = activity
                 .orElseThrow(() -> new EntityNotFoundException("Activity not found."));
-        //activity= mapTo(activityDto);
-        activityRepository.save(activity);
+        activityToUpdate.setActivityType(activityDto.getActivityType());
+        activityToUpdate.setCaloriesPerHour(activityDto.getCaloriesPerHour());
+        activityToUpdate.setCaloriesPerRep(activityDto.getCaloriesPerRep());
+        activityRepository.save(activityToUpdate);
     }
 
-    public void delete (Long id){
+    public void delete(Long id) {
         activityRepository.deleteById(id);
     }
 
-    private Activity mapTo(ActivityDto activityDto){
+    private Activity mapTo(ActivityDto activityDto) {
         Activity activity = new Activity();
         activity.setId(activityDto.getId());
         activity.setActivityType(activityDto.getActivityType());
@@ -51,7 +58,7 @@ public class ActivityService {
         return activity;
     }
 
-    private ActivityDto mapTo(Activity activity){
+    private ActivityDto mapTo(Activity activity) {
         ActivityDto activityDto = new ActivityDto();
         activityDto.setId(activity.getId());
         activityDto.setActivityType(activity.getActivityType());

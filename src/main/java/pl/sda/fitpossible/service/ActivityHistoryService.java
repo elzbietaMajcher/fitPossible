@@ -44,7 +44,8 @@ public class ActivityHistoryService {
         activityHistoryDto.setActivityType(activityHistory.getActivityType());
         activityHistoryDto.setCaloriesPerHour(activityHistory.getCaloriesPerHour());
         activityHistoryDto.setCaloriesPerRep(activityHistory.getCaloriesPerRep());
-        //activityHistoryDto.setTime(activityHistory.getTime());
+        activityHistoryDto.setStartTime(activityHistory.getStartTime());
+        activityHistoryDto.setFinishTime(activityHistory.getFinishTime());
         activityHistoryDto.setReps(activityHistory.getReps());
         return activityHistoryDto;
     }
@@ -54,7 +55,8 @@ public class ActivityHistoryService {
         activityHistory.setActivityType(activityHistoryDto.getActivityType());
         activityHistory.setCaloriesPerHour(activityHistoryDto.getCaloriesPerHour());
         activityHistory.setCaloriesPerRep(activityHistoryDto.getCaloriesPerRep());
-        //activityHistory.setTime(activityHistoryDto.getTime());
+        activityHistory.setStartTime(activityHistoryDto.getStartTime());
+        activityHistory.setFinishTime(activityHistoryDto.getFinishTime());
         activityHistory.setReps(activityHistoryDto.getReps());
         return activityHistory;
     }

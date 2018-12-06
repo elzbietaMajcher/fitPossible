@@ -16,7 +16,7 @@ public class ActivityHistoryDto {
     private int caloriesPerRep;
    // @CreationTimestamp
     private LocalDateTime startTime;
-    @UpdateTimestamp
+    //@UpdateTimestamp
     private LocalDateTime finishTime;
     private int reps;
 

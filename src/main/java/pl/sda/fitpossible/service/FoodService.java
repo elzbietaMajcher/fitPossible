@@ -32,7 +32,7 @@ public class FoodService {
                 .orElseThrow(()-> new EntityNotFoundException("Item not found " + id));
         findFood.setName(foodDto.getName());
         findFood.setCaloriesPerUnit(foodDto.getCaloriesPerUnit());
-        findFood.setUnit(findFood.getUnit());
+        findFood.setUnit(foodDto.getUnit());
         foodRepository.save(findFood);
     }
 

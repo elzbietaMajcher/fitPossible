@@ -15,17 +15,17 @@ public class ActivityHistoryRestController {
         this.activityHistoryService = activityHistoryService;
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/add")//
     public void addActivityToHistory(@RequestBody ActivityHistoryDto activityHistoryDto) {
         activityHistoryService.addActivity(activityHistoryDto);
     }
 
-    @PostMapping(value = "/start")
+    @PostMapping(value = "/start") //ok
     public void startActivity(@RequestBody ActivityHistoryDto activityHistoryDto) {
         activityHistoryService.startActivity(activityHistoryDto);
     }
 
-    @PutMapping(value = "/finish/{id}")
+    @PutMapping(value = "/finish/{id}")  //ok
     public void finishActivity(@PathVariable Long id) {
         activityHistoryService.stopActivity(id);
     }

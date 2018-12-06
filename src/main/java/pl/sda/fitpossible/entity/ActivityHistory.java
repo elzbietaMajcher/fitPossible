@@ -20,7 +20,7 @@ public class ActivityHistory implements Serializable {
     private int caloriesPerRep;
    // @CreationTimestamp
     private LocalDateTime startTime;
-    @UpdateTimestamp
+    //@UpdateTimestamp
     private LocalDateTime finishTime;
     private int reps;
     @ManyToOne

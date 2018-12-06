@@ -5,37 +5,40 @@ import pl.sda.fitpossible.dto.ActivityDto;
 import pl.sda.fitpossible.service.ActivityService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping (value = "/activities")
+@RequestMapping(value = "/activities")
 public class ActivityRestController {
 
     private ActivityService activityService;
-    public ActivityRestController(ActivityService activityService) {
-        this.activityService = activityService;}
 
-    @PostMapping ("/create")
-    public void crateActivity (@Valid @RequestBody ActivityDto activityDto){
+    public ActivityRestController(ActivityService activityService) {
+        this.activityService = activityService;
+    }
+
+    @PostMapping("/create")  // ok
+    public void crateActivity(@Valid @RequestBody ActivityDto activityDto) {
         activityService.create(activityDto);
     }
 
-    @GetMapping ("/find")
-    public void findAllActivites (){
-        activityService.findAll();
+    @GetMapping("/find")  // ok
+    public List<ActivityDto> findAllActivites() {
+        return activityService.findAll();
     }
 
-    @GetMapping ("/find/{id}")
-    public void findOneActivity (@RequestParam Long id){
-        activityService.findActivity(id);
+    @GetMapping("/find/{id}")  // ok
+    public ActivityDto findOneActivity(@PathVariable Long id) {
+        return activityService.findActivity(id);
     }
 
-    @PutMapping ("/update/{id}")  // ??
-    public void updateActivity(/*@Valid @RequestBody ActivityDto activityDto,*/ @RequestParam Long id){
-        activityService.update(id/*, activityDto*/);
+    @PutMapping("/update/{id}")  // ok
+    public void updateActivity( @RequestBody ActivityDto activityDto, @PathVariable Long id) {
+        activityService.updateActivity(id, activityDto);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteActivity (@RequestParam Long id){
+    @DeleteMapping("/delete/{id}")// ok
+    public void deleteActivity(@PathVariable Long id) {
         activityService.delete(id);
     }
 

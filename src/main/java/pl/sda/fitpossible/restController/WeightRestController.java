@@ -26,16 +26,16 @@ public class WeightRestController {
         this.weightService = weightService;
     }
 
-    @PostMapping("/add/{login}")
+    @PostMapping("/add/{login}") //ok
     public void addWeight(@Valid @RequestBody WeightDto weightDto, @PathVariable String login) {
-        AppUser owner = appUserService.findUser(login);
-        weightService.addWeight(weightDto,owner);
+        //AppUserDto owner = appUserService.findUser(login);
+        weightService.addWeight(weightDto, login);
     }
 
-    @GetMapping("/find_weight/{login}")
-    public void getWeightHistoryByLogin(/*AppUserDto dto,*/ @PathVariable String login) {
-        AppUser owner = appUserService.findUser(login);
-        weightService.getWeightHistory(owner);
+    @GetMapping("/find_weight/{login}") //ok
+    public List<WeightDto> getWeightHistoryByLogin(/*AppUserDto dto,*/ @PathVariable String login) {
+        //AppUser owner = appUserService.findUser(login);
+        return weightService.getWeightHistory(login);
     }
 }
 

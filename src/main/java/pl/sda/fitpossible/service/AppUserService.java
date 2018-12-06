@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sda.fitpossible.dto.AppUserDto;
 import pl.sda.fitpossible.entity.AppUser;
+import pl.sda.fitpossible.entity.Weight;
 import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.UserRoleRepository;
 import pl.sda.fitpossible.repository.WeightRepository;
@@ -23,6 +24,9 @@ public class AppUserService {
 
     @Autowired
     private AppUserRoleService appUserRoleService;
+
+    @Autowired
+    private WeightRepository weightRepository;
 
     private AppUserRepository appUserRepository;
 
@@ -46,15 +50,15 @@ public class AppUserService {
         return mapTo(appUser);
     }*/
 
-    public AppUser findUser(String login) {  //??
+    public AppUserDto findUser(String login) {  //??
         AppUser appUser = appUserRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
-        return appUser;
+        return mapTo(appUser);
     }
 
     public AppUserDto findUser(Long id) {
         AppUser appUser = appUserRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
         return mapTo(appUser);
     }
 
@@ -66,7 +70,7 @@ public class AppUserService {
 
     public void update(String login, AppUserDto dto) {
         AppUser appUser = appUserRepository.findByLogin(login)
-                .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
+                .orElseThrow(() -> new EntityNotFoundException("AppUser " + login + " not found."));
         appUser.setPassword(passwordEncoder.encode(dto.getPassword()));
         appUser.setEmail(dto.getEmail());
         appUser.setDateOfBirth(dto.getDateOfBirth());
@@ -76,8 +80,15 @@ public class AppUserService {
         appUserRepository.save(appUser);
     }
 
-    public void delete(String login) {
-        appUserRepository.deleteByLogin(login);
+    public void delete(String login) throws Exception {
+        AppUser userToDelete = appUserRepository.findByLogin(login)
+                .orElseThrow(Exception::new);
+
+        List<Weight> weightByOwner = weightRepository.findAllByUserLogin(login);
+        for (Weight weight : weightByOwner) {
+            weightRepository.delete(weight);
+        }
+        appUserRepository.delete(userToDelete);
     }
 
     private AppUserDto mapTo(AppUser appUser) {

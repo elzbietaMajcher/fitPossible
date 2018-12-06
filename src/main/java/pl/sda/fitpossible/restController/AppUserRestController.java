@@ -31,24 +31,25 @@ public class AppUserRestController {
         appUserService.update(login, dto);
     }
 
-    @GetMapping("/{id}") //??
-    public void getUserById(@PathVariable long id) {
-        appUserService.findUser(id);
+    @GetMapping("/id/{id}") //ok
+    public AppUserDto getUserById(@PathVariable long id) {
+        return appUserService.findUser(id);
     }
 
-    @GetMapping("/{login}")  //??
-    public void getUserByLogin(@PathVariable String login) {
-        appUserService.findUser(login);
+    @GetMapping("/login/{login}")  //ok
+    public AppUserDto getUserByLogin(@PathVariable String login) {
+        return appUserService.findUser(login);
     }
 
     @GetMapping("/all")//ok
-    public void findAll() {
-        appUserService.findAll();
+    public List<AppUserDto> findAll() {
+        return appUserService.findAll();
     }
 
-    @GetMapping(value = "/delete/{login}")  //??
-    public void deleteUser(@PathVariable String login) {
+    @DeleteMapping(value = "/delete/{login}")  //ok + usówanie wagi
+    public void deleteUser(@PathVariable String login) throws Exception {
         appUserService.delete(login);
+
 
     }
 

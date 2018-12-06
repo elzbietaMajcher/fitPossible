@@ -7,8 +7,10 @@ import pl.sda.fitpossible.dto.WeightDto;
 import pl.sda.fitpossible.entity.AppUser;
 import pl.sda.fitpossible.entity.Weight;
 
+import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.WeightRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,21 +20,30 @@ public class WeightService {
     private WeightRepository weightRepository;
     @Autowired
     private AppUserService appUserService;
-
     @Autowired
+    private AppUserRepository appUserRepository;
+
+    //@Autowired
     public WeightService(WeightRepository weightRepository) {
         this.weightRepository = weightRepository;
     }
 
-    public void addWeight(WeightDto weightDto, AppUser owner) {
+    public void addWeight(WeightDto weightDto, String login) {
         Weight weight = mapTo(weightDto);
+        AppUser owner =findUser(login);
         weight.setUser(owner);
         weightRepository.save(weight);
     }
 
-    public List<WeightDto> getWeightHistory(AppUser owner) {  // for one user
-        List<Weight> weightHistory = weightRepository.findAllByUser(owner);
+    public List<WeightDto> getWeightHistory(String login) {  // for one user
+        List<Weight> weightHistory = weightRepository.findAllByUserLogin(login);
         return weightHistory.stream().map(this::mapTo).collect(Collectors.toList());
+    }
+
+    private AppUser findUser(String login) {
+        return appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
+
     }
 
     private WeightDto mapTo(Weight weight) {
@@ -46,8 +57,8 @@ public class WeightService {
         Weight weight = new Weight();
         weight.setDate(weightDto.getDate());
         weight.setWeight(weightDto.getWeight());
-        //AppUser appUser = appUserService.find(weightDto.getUser_id());
-        //weight.setUser(appUser);
+        /*AppUser appUser = appUserService.findUser(weightDto.getUser_id());
+        weight.setUser(mapTo(appUser));*/
 
         return weight;
 
