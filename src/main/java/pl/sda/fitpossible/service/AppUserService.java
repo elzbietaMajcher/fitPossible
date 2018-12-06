@@ -52,12 +52,13 @@ public class AppUserService {
         return appUser;
     }
 
-    public AppUser findUser(Long id) {AppUser appUser = appUserRepository.findById(id)
+    public AppUserDto findUser(Long id) {
+        AppUser appUser = appUserRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
-        return appUserRepository.getOne(id);
+        return mapTo(appUser);
     }
 
-    public List<AppUser> findAll() {  //ok
+    public List<AppUserDto> findAll() {  //ok
         List<AppUser> appUsers = appUserRepository.findAll();
         return appUsers.stream().map(this::mapTo).collect(Collectors.toList());
         /* appUsers.stream().map(this::mapTo).collect(Collectors.toList());*/

@@ -24,6 +24,25 @@ public class NutritionHistoryService {
         nutritonHistoryRepository.save(nutritionHistory);
     }
 
+
+    public List<NutritionHistoryDto> findAll() {
+        List<NutritionHistory> history = nutritonHistoryRepository.findAll();
+        return history.stream().map(this::mapTo).collect(Collectors.toList());
+    }
+
+    public NutritionHistoryDto findOneMeal(Long id) {
+        NutritionHistory nutritionHistory = nutritonHistoryRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Meal not found"));
+        return mapTo(nutritionHistory);
+    }
+
+    public void update(Long id, NutritionHistoryDto nutritionHistoryDto) {
+        NutritionHistory nutritionHistory = nutritonHistoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Meal not found"));
+        nutritionHistory.setMealTime(nutritionHistoryDto.getMealTime());
+        nutritonHistoryRepository.save(nutritionHistory);
+    }
+
     private NutritionHistory mapTo(NutritionHistoryDto nutritionHistoryDto) {
         NutritionHistory nutritionHistory = new NutritionHistory();
         nutritionHistory.setName(nutritionHistoryDto.getName());
@@ -40,21 +59,6 @@ public class NutritionHistoryService {
         nutritionHistoryDto.setUnit(nutritionHistory.getUnit());
         nutritionHistoryDto.setMealTime(nutritionHistory.getMealTime());
         return nutritionHistoryDto;
-    }
-
-    public List<NutritionHistoryDto> findAll() {
-        List<NutritionHistory> history = nutritonHistoryRepository.findAll();
-        return history.stream().map(this::mapTo).collect(Collectors.toList());
-    }
-
-    public NutritionHistory findOneMeal(Long id) {
-        return nutritonHistoryRepository.getOne(id);
-    }
-
-    public void update(Long id, NutritionHistoryDto nutritionHistoryDto) {
-        NutritionHistory nutritionHistory = nutritonHistoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Meal not found"));
-        nutritionHistory.setMealTime(nutritionHistoryDto.getMealTime());
     }
 
 }

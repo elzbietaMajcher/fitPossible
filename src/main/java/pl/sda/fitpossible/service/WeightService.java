@@ -46,8 +46,8 @@ public class WeightService {
         Weight weight = new Weight();
         weight.setDate(weightDto.getDate());
         weight.setWeight(weightDto.getWeight());
-        AppUser appUser = appUserService.find(weightDto.getUser_id());
-        weight.setUser(appUser);
+        //AppUser appUser = appUserService.find(weightDto.getUser_id());
+        //weight.setUser(appUser);
 
         return weight;
 

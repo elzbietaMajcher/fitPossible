@@ -26,7 +26,7 @@ public class ActivityService {
         return mapTo(activity);
     }
 
-    public List<Activity> findAll (){ //??
+    public List<ActivityDto> findAll (){ //??
         List<Activity> activities = activityRepository.findAll();
         return activities.stream().map(this::mapTo).collect(Collectors.toList());
     }

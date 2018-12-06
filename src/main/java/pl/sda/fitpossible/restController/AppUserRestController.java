@@ -26,9 +26,9 @@ public class AppUserRestController {
     }
 
     @PutMapping("/update/{login}") // ok
-    public void updateUser( @RequestBody AppUserDto dto, @PathVariable String login) {
+    public void updateUser(@RequestBody AppUserDto dto, @PathVariable String login) {
         appUserService.findUser(login);
-        appUserService.update(login,dto);
+        appUserService.update(login, dto);
     }
 
     @GetMapping("/{id}") //??
@@ -42,8 +42,8 @@ public class AppUserRestController {
     }
 
     @GetMapping("/all")//ok
-    public List<AppUser> findAll() {
-        return appUserService.findAll();
+    public void findAll() {
+        appUserService.findAll();
     }
 
     @GetMapping(value = "/delete/{login}")  //??

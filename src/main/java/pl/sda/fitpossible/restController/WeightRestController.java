@@ -33,9 +33,9 @@ public class WeightRestController {
     }
 
     @GetMapping("/find_weight/{login}")
-    public List<Weight> getWeightHistoryByLogin(/*AppUserDto dto,*/ @PathVariable String login) {
+    public void getWeightHistoryByLogin(/*AppUserDto dto,*/ @PathVariable String login) {
         AppUser owner = appUserService.findUser(login);
-        return weightService.getWeightHistory(owner);
+        weightService.getWeightHistory(owner);
     }
 }
 
