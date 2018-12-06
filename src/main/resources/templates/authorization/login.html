@@ -11,8 +11,8 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form th:href="@{/login}" method="post">
             <div class="form-group">
-                <label for="login">Username:</label>
-                <input type="text" class="form-control" name="login" id="login" aria-describedby="usernameHelp"
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" name="username" id="username" aria-describedby="usernameHelp"
                        placeholder="Username">
             </div>
             <div class="form-group">
@@ -24,6 +24,7 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 <th:block th:include="template :: footer"/>
 <th:block th:include="template :: scripts_js"/>
