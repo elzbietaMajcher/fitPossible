@@ -1,0 +1,105 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+
+<head>
+    <th:block th:include="template :: head_scripts_css"/>
+</head>
+<body>
+<th:block th:include="template :: navbar"/>
+<h2>User Form</h2>
+
+//////////////////////////////////
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>User personal data form</h2>
+        <p class="lead">Please, fill in the form to personalize the application.</p>
+    </div>
+
+    <div class="container">
+        <h2>User personal data</h2>
+        show here the personal user data like login, e-mail, etc..
+
+        <div class="mb-3">
+            <label>User Login: </label>
+            <div class="col-3" th:text="${appUserDto}"></div>
+            </div>
+
+    </div>
+
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <form th:href="@{/user/userForm}" method="post" th:object="${updateUserData}">
+            <div class="form-group">
+                <label for="height">Height:</label>
+                <input type="number" class="form-control" name="height"  placeholder="height like 170">
+
+
+
+                <div class="form-check">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+        </form>
+
+    </div>
+
+    <!--<div class="container">-->
+        <!--<h2>Update data</h2>-->
+        <!--<div class="mb-3">-->
+            <!--<form th:href="@{/user/userPagge}" method="post" th:object="${appUserDto}">-->
+
+        <!--<div class="mb-3">-->
+            <!--<label for="email">Email <span class="text-muted">(Optional)</span></label>-->
+            <!--<input type="email" class="form-control" id="email" placeholder="you@example.com">-->
+            <!--<div class="invalid-feedback">-->
+                <!--Please enter a valid email address.-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="mb-3">-->
+            <!--<label for="gender">Gender <span class="text-muted">(Optional)</span></label>-->
+                <!--<select class="custom-select d-block w-100" id="gender" required>-->
+                    <!--<option value="">Choose...</option>-->
+                    <!--<option>Male</option>-->
+                    <!--<option>Female</option>-->
+                <!--</select>-->
+        <!--</div>-->
+
+        <!--<div class="mb-3">-->
+            <!--<label for="height">Enter your height in cm <span class="text-muted">(Optional)</span></label>-->
+            <!--<input type="number" class="form-control" id="height" placeholder="170">-->
+            <!--<div class="invalid-feedback">-->
+                <!--Please enter your height in a valid format, in cm! for example: 170-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="mb-3">-->
+            <!--<label for="lifeStyle">Choose your life style type <span class="text-muted">(Optional)</span></label>-->
+            <!--<select class="custom-select d-block w-100" id="lifeStyle" required>-->
+                <!--<option value="">Choose...</option>-->
+                <!--<option>Lazy how to connect with LifestyleType DB??</option>-->
+                <!--<option>Active</option>-->
+            <!--</select>-->
+        <!--</div>-->
+
+        <!--<div class="mb-3">-->
+            <!--<label for="dateOfBirth">Enter your date of birth <span class="text-muted">(Optional)</span></label>-->
+            <!--<input type="date" class="form-control" id="dateOfBirth" placeholder="24-01-2000">-->
+            <!--&lt;!&ndash;<div class="invalid-feedback">&ndash;&gt;-->
+            <!--&lt;!&ndash;Please enter a valid format!&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<hr class="mb-4">-->
+        <!--<button class="btn btn-primary btn-lg btn-block" type="submit">Confirm</button>-->
+        <!--</form>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+///////////////////////////////////
+<th:block th:include="template :: footer"/>
+<th:block th:include="template :: scripts_js"/>
+</body>
+</html>

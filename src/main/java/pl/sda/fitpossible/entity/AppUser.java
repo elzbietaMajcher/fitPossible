@@ -22,7 +22,15 @@ public class AppUser implements Serializable {
     private Long id;
     private String login;
     private String password;
+    private String email;
 
+    private Gender gender;
+
+    private Integer height;
+
+    private Date dateOfBirth;
+
+    private LifestyleType lifestyle;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles;

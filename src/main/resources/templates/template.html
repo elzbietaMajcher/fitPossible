@@ -18,6 +18,7 @@
             <a class="py-2 d-none d-md-inline-block" th:href="@{/}">Home</a>
 
             <a sec:authorize="isAuthenticated()" class="py-2 d-none d-md-inline-block" th:href="@{/user/userPage}">Profile</a>
+            <a sec:authorize="isAuthenticated()" class="py-2 d-none d-md-inline-block" th:href="@{/user/userForm}">User data form</a>
             <a sec:authorize="isAuthenticated() && hasRole('ADMIN')" class="py-2 d-none d-md-inline-block"
                th:href="@{/admin/adminPage}">Admin Panel</a>
             <a sec:authorize="!isAuthenticated()" class="py-2 d-none d-md-inline-block" th:href="@{/login}">Login</a>

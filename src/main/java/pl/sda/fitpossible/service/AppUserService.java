@@ -58,6 +58,12 @@ public class AppUserService {
         return Optional.of(appUserRepository.save(appUser));
     }
 
+    public AppUserDto findUserByLogin(String login) {
+        AppUser appUser = appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
+        return mapTo(appUser);
+    }
+
     public AppUserDto findUser(Long id) {
         AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
@@ -77,10 +83,19 @@ public class AppUserService {
         AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
         appUser.setPassword(dto.getPassword());
-       // appUser.setLifestyle(dto.getLifestyle());
-       // appUser.setEmail(dto.getEmail());
+        // appUser.setLifestyle(dto.getLifestyle());
+        // appUser.setEmail(dto.getEmail());
         appUserRepository.save(appUser);
     }
+
+    public void updateByLogin(String login, AppUserDto dto) {
+        AppUser appUser = appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
+
+        appUser = mapTo(dto);
+        appUserRepository.save(appUser);
+    }
+
 
     public void delete(String login) {
         appUserRepository.deleteByLogin(login);
@@ -89,26 +104,35 @@ public class AppUserService {
     private AppUserDto mapTo(AppUser appUser) {
         AppUserDto dto = new AppUserDto();
 
-        dto.setLogin(appUser.getLogin());
-        dto.setPassword(appUser.getPassword());
-       // dto.setEmail(appUser.getEmail());
-        //dto.setDateOfBirth(appUser.getDateOfBirth());
-        //dto.setGender(appUser.getGender());
-       // dto.setHeight(appUser.getHeight());
-      //  dto.setLifestyle(appUser.getLifestyle());
+        //dto.setLogin(appUser.getLogin());
+        //dto.setPassword(appUser.getPassword());
+        dto.setEmail(appUser.getEmail());
+        dto.setDateOfBirth(appUser.getDateOfBirth());
+        dto.setGender(appUser.getGender());
+        dto.setHeight(appUser.getHeight());
+        dto.setLifestyle(appUser.getLifestyle());
         return dto;
     }
 
     private AppUser mapTo(AppUserDto dto) {
         AppUser appUser = new AppUser();
 
-        appUser.setLogin(dto.getLogin());
-        appUser.setPassword(dto.getPassword());
-        //appUser.setEmail(dto.getEmail());
-       // appUser.setDateOfBirth(dto.getDateOfBirth());
-        //appUser.setGender(dto.getGender());
-        //appUser.setHeight(dto.getHeight());
-       // appUser.setLifestyle(dto.getLifestyle());
+        //appUser.setLogin(dto.getLogin());
+        //appUser.setPassword(dto.getPassword());
+        appUser.setEmail(dto.getEmail());
+        appUser.setDateOfBirth(dto.getDateOfBirth());
+        appUser.setGender(dto.getGender());
+        appUser.setHeight(dto.getHeight());
+        appUser.setLifestyle(dto.getLifestyle());
         return appUser;
+    }
+
+    public void updateAppUserData(String login, AppUserDto appUserDto) {
+        Optional<AppUser> appUserOptional = appUserRepository.findByLogin(login);
+        AppUser appUser = appUserOptional
+                .orElseThrow(() -> new EntityNotFoundException("User not found " + login));
+        appUser = mapTo(appUserDto);
+        appUserRepository.save(appUser);
+
     }
 }
