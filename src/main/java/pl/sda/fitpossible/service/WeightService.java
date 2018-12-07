@@ -18,8 +18,7 @@ import java.util.stream.Collectors;
 public class WeightService {
 
     private WeightRepository weightRepository;
-    @Autowired
-    private AppUserService appUserService;
+
     @Autowired
     private AppUserRepository appUserRepository;
 

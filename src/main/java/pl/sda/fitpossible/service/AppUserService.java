@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sda.fitpossible.dto.AppUserDto;
+import pl.sda.fitpossible.entity.ActivityHistory;
 import pl.sda.fitpossible.entity.AppUser;
+import pl.sda.fitpossible.entity.NutritionHistory;
 import pl.sda.fitpossible.entity.Weight;
-import pl.sda.fitpossible.repository.AppUserRepository;
-import pl.sda.fitpossible.repository.UserRoleRepository;
-import pl.sda.fitpossible.repository.WeightRepository;
+import pl.sda.fitpossible.repository.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class AppUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
-    private UserRoleRepository userRoleRepository;
-
+    private ActivityHistoryRepository activityHistoryRepository;
+    @Autowired
+    private NutritonHistoryRepository nutritonHistoryRepository;
     @Autowired
     private AppUserRoleService appUserRoleService;
 
@@ -50,6 +50,11 @@ public class AppUserService {
         return mapTo(appUser);
     }*/
 
+    /*public AppUserDto findUser(String login, String password) {  //??
+        AppUser appUser = appUserRepository.findAppUserByLoginEqualsIgnoringCaseAndPassword(login, passwordEncoder(password))
+                .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
+        return mapTo(appUser);
+    }*/
     public AppUserDto findUser(String login) {  //??
         AppUser appUser = appUserRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
@@ -88,7 +93,17 @@ public class AppUserService {
         for (Weight weight : weightByOwner) {
             weightRepository.delete(weight);
         }
+
+        List<ActivityHistory>activityHistoryByOwner = activityHistoryRepository.findAllByUserLogin(login);
+        for(ActivityHistory history:activityHistoryByOwner){
+            activityHistoryRepository.delete(history);
+        }
         appUserRepository.delete(userToDelete);
+
+        List<NutritionHistory>nutritionHistoryByOwner=nutritonHistoryRepository.findAllByUserLogin(login);
+        for(NutritionHistory history:nutritionHistoryByOwner){
+            nutritonHistoryRepository.delete(history);
+        }
     }
 
 

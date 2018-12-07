@@ -36,6 +36,11 @@ public class AppUserRestController {
         return appUserService.findUser(id);
     }
 
+   /* @GetMapping("/login/{login}")  //ok
+    public AppUserDto getUserByLogin(@PathVariable String login) {
+        return appUserService.findUser(login);
+    }*/
+
     @GetMapping("/login/{login}")  //ok
     public AppUserDto getUserByLogin(@PathVariable String login) {
         return appUserService.findUser(login);

@@ -12,6 +12,7 @@ public class AppUserDto {
 
     private Long id;
     @NotBlank
+
     private String login;
     @NotBlank
     private String password;

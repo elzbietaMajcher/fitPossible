@@ -10,7 +10,9 @@ import pl.sda.fitpossible.repository.AppUserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ActivityHistoryService {
@@ -47,6 +49,11 @@ public class ActivityHistoryService {
         activityHistoryRepository.save(currentActivity);
     }
 
+    public List<ActivityHistoryDto> getActivityHistory(String login) {
+        List<ActivityHistory> activityHistories=activityHistoryRepository.findAllByUserLogin(login);
+        return activityHistories.stream().map(this::mapTo).collect(Collectors.toList());
+    }
+
     private AppUser findUser(String login) { // jak wyniesc te metode aby ja uwspolnic
         return appUserRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
@@ -74,4 +81,6 @@ public class ActivityHistoryService {
         activityHistory.setReps(activityHistoryDto.getReps());
         return activityHistory;
     }
+
+
 }
