@@ -14,9 +14,9 @@ public class ActivityHistoryDto {
     private String activityType;
     private int caloriesPerHour;
     private int caloriesPerRep;
-    @CreationTimestamp
+   // @CreationTimestamp
     private LocalDateTime startTime;
-    @UpdateTimestamp
+    //@UpdateTimestamp
     private LocalDateTime finishTime;
     private int reps;
 

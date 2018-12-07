@@ -33,7 +33,7 @@
         <form th:href="@{/user/userForm}" method="put" th:object="${updateUserData}">
             <div class="form-group">
                 <label for="height">Height:</label>
-                <input type="number" class="form-control" name="height" id="height" placeholder="height like 170">
+                <input type="number" class="form-control" name="height" id="height" th:field="*{height}"placeholder="height like 170">
 
 
 

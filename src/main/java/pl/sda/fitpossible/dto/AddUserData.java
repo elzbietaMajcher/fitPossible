@@ -4,19 +4,11 @@ import lombok.Data;
 import pl.sda.fitpossible.entity.Gender;
 import pl.sda.fitpossible.entity.LifestyleType;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
+
 @Data
-public class AppUserDto {
+public class AddUserData {
 
-    private Long id;
-    @NotBlank
-
-    private String login;
-    @NotBlank
-    private String password;
-    @Email
     private String email;
 
     private Gender gender;
@@ -26,5 +18,4 @@ public class AppUserDto {
     private Date dateOfBirth;
 
     private LifestyleType lifestyle;
-
 }

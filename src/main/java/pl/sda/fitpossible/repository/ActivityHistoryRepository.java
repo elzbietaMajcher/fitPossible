@@ -10,5 +10,7 @@ import java.util.Optional;
 public interface ActivityHistoryRepository extends JpaRepository<ActivityHistory, Long> {
     List<ActivityHistory> findAllByUser(AppUser owner);
 
+    List<ActivityHistory> findAllByUserLogin(String login);
+
     /*Optional<ActivityHistory> findById(Long id);*/
 }

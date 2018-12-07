@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.sda.fitpossible.dto.AddUserData;
 import pl.sda.fitpossible.dto.AppUserDto;
 import pl.sda.fitpossible.entity.AppUser;
 import pl.sda.fitpossible.service.AppUserService;
@@ -43,14 +44,32 @@ public class UserWebController {
         return "redirect:/login";
     }
 
+//    @PutMapping("/userForm")
+//    public String updateUserForm(Model model, AppUserDto appUserDto) {
+//        Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
+//
+//            String optionalLogin = appUserOptional.get().getLogin();
+//
+//
+//            model.addAttribute("updateUserData",appUserOptional);
+//            appUserService.update(optionalLogin, appUserDto);
+//
+//            return "user/userForm";
+//
+//    }
+
+
+
 
     @PutMapping("/userForm")
     public String updateUserForm(Model model, AppUserDto appUserDto) {
         Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
         if (appUserOptional.isPresent()) {
             String optionalLogin = appUserOptional.get().getLogin();
-        model.addAttribute("updateUserData",appUserDto);
-        appUserService.updateAppUserData(optionalLogin, appUserDto);
+
+
+        model.addAttribute("updateUserData",appUserOptional);
+        appUserService.update(optionalLogin, appUserDto);
 
         return "user/userForm";
     }

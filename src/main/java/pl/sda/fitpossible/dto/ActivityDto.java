@@ -14,7 +14,7 @@ import java.sql.Time;
 public class ActivityDto {
 
     private Long id;
-    @NotBlank
+    //@NotBlank
     private String activityType;
 
     private int caloriesPerHour;

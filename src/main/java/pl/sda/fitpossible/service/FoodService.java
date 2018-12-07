@@ -18,8 +18,7 @@ public class FoodService {
     public FoodService(FoodRepository foodRepository){this.foodRepository = foodRepository;}
 
     public void createFood(FoodDto foodDto){
-        Food food = new Food();
-        food = mapTo(foodDto);
+        Food food = mapTo(foodDto);
         foodRepository.save(food);
     }
 
@@ -33,7 +32,7 @@ public class FoodService {
                 .orElseThrow(()-> new EntityNotFoundException("Item not found " + id));
         findFood.setName(foodDto.getName());
         findFood.setCaloriesPerUnit(foodDto.getCaloriesPerUnit());
-        findFood.setUnit(findFood.getUnit());
+        findFood.setUnit(foodDto.getUnit());
         foodRepository.save(findFood);
     }
 
