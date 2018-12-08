@@ -95,6 +95,7 @@ public class AppUserService {
     }*/
 
 
+
     public List<AppUserDto> findAll() {  //ok
         List<AppUser> appUsers = appUserRepository.findAll();
         return appUsers.stream().map(this::mapTo).collect(Collectors.toList());
