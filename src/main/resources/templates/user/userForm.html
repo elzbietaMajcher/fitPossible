@@ -36,11 +36,11 @@
                 <input type="number" class="form-control" name="height" id="height" th:field="*{height}" th:value="*{height}"
                        placeholder="height like 170">
 
-                <label for="dateOfBirth">Date of birth:</label>
-                <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" th:field="*{dateOfBirth}" th:value="${#dates.format(dateOfBirth, 'dd.MM.yyyy')}"
-                       placeholder="dd-mm-yyyy">
+                <!--<label for="dateOfBirth">Date of birth:</label>-->
+                <!--<input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" th:field="*{dateOfBirth}" th:value="${#dates.format(dateOfBirth, 'dd.MM.yyyy')}"-->
+                       <!--placeholder="dd-mm-yyyy">-->
 
-                <label for="email">Choose gender:</label>
+                <label for="email">Add email:</label>
                 <input type="email" class="form-control" name="email" id="email" th:field="*{email}" th:value="*{email}"
                        placeholder="you@example.com">
 
@@ -51,7 +51,6 @@
                 </select><!--<input type="text" class="form-control" name="gender" id="gender" th:field="*{gender}" placeholder="MALE or FEMALE">-->
 
 
-                lifestyle
                 <label for=" lifestyle">Choose Life style:</label>
                 <select id="lifestyle" th:field="*{lifestyle}" class="form-control" th:value="*{lifestyle}">
                     <option th:each="lifestyleX : ${lifestyles}" th:text="${lifestyleX.name}" th:value="${lifestyleX}"></option>

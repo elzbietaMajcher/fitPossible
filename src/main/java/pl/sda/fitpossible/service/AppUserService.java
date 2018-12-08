@@ -125,12 +125,12 @@ public class AppUserService {
         for (ActivityHistory history : activityHistoryByOwner) {
             activityHistoryRepository.delete(history);
         }
-        appUserRepository.delete(userToDelete);
 
-        List<NutritionHistory> nutritionHistoryByOwner = nutritonHistoryRepository.findAllByUserLogin(login);
+        List<NutritionHistory> nutritionHistoryByOwner = nutritonHistoryRepository.findAllByAppUserId(login);
         for (NutritionHistory history : nutritionHistoryByOwner) {
             nutritonHistoryRepository.delete(history);
         }
+        appUserRepository.delete(userToDelete);
     }
 
 
@@ -166,7 +166,7 @@ public class AppUserService {
                 .orElseThrow(() -> new EntityNotFoundException("AppUser " + login + " not found."));
 
         appUser.setEmail(dto.getEmail());
-        appUser.setDateOfBirth(getAddBirthData(dto.getDateOfBirth()));
+        //appUser.setDateOfBirth(getAddBirthData(dto.getDateOfBirth()));
         appUser.setGender(dto.getGender());
         appUser.setHeight(dto.getHeight());
         appUser.setLifestyle(dto.getLifestyle());

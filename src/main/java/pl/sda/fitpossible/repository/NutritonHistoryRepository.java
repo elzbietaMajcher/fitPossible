@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface NutritonHistoryRepository extends JpaRepository<NutritionHistory, Long> {
 
-    List<NutritionHistory> findAllByUserLogin(String login);
+    List<NutritionHistory> findAllByAppUserId(String login);
+
+    List<NutritionHistory> findAllByAppUserId(Long appUserId);
 }
 

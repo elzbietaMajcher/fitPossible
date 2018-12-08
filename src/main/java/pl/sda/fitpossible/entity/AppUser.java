@@ -33,11 +33,14 @@ public class AppUser implements Serializable {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Collection<Weight> weightMeasurements;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Collection<NutritionHistory> nutritionHistory ;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Collection<ActivityHistory> activityHistory;
+
+
+//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+//    private Collection<NutritionHistory> nutritionHistory ;
+//
+//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+//    private Collection<ActivityHistory> activityHistory;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles;

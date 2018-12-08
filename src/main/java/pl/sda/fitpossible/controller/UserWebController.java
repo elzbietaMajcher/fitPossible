@@ -42,14 +42,12 @@ public class UserWebController {
         Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
         if (appUserOptional.isPresent()) {
 
-            //zmodyfikowac aby nie wyświetlał hasła
-
             AppUser user = appUserOptional.get();
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
             AddUserData addUserData = AddUserData.builder()
                     .email(user.getEmail())
-                    .dateOfBirth(formatter.format(user.getDateOfBirth()))
+                    //.dateOfBirth(formatter.format(user.getDateOfBirth()))
                     .height(user.getHeight())
                     .gender(user.getGender())
                     .lifestyle(user.getLifestyle())

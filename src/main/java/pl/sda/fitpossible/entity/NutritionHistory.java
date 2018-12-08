@@ -15,13 +15,27 @@ public class NutritionHistory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private Integer caloriesPerUnit;
-    private String unit;
+
     //@CreationTimestamp
-   // @UpdateTimestamp
+    // @UpdateTimestamp
     private LocalDateTime mealTime;
 
-    @ManyToOne
-    private AppUser user;
+
+    private Long appUserId;
+    private Long foodId;
+
+
+//
+//
+//
+//
+//    @ManyToOne
+//    private Food food;
+//
+//    //@CreationTimestamp
+//   // @UpdateTimestamp
+//    private LocalDateTime mealTime;
+//
+//    @ManyToOne
+//    private AppUser user;
 }
