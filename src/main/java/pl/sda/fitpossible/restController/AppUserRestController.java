@@ -27,14 +27,14 @@ public class AppUserRestController {
 
     @PutMapping("/update/{login}") // ok
     public void updateUser(@RequestBody AppUserDto dto, @PathVariable String login) {
-        appUserService.findUser(login);
+        //appUserService.findUser(login);
         appUserService.update(login, dto);
     }
 
-    @GetMapping("/id/{id}") //ok
+   /* @GetMapping("/id/{id}") //ok
     public AppUserDto getUserById(@PathVariable long id) {
         return appUserService.findUser(id);
-    }
+    }*/
 
    /* @GetMapping("/login/{login}")  //ok
     public AppUserDto getUserByLogin(@PathVariable String login) {
