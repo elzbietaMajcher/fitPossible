@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.fitpossible.dto.AddUserData;
 import pl.sda.fitpossible.dto.AppUserDto;
 import pl.sda.fitpossible.entity.AppUser;
+import pl.sda.fitpossible.entity.Gender;
+import pl.sda.fitpossible.entity.LifestyleType;
 import pl.sda.fitpossible.service.AppUserService;
 import pl.sda.fitpossible.service.UserAuthenticationService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -38,11 +44,38 @@ public class UserWebController {
 
             //zmodyfikowac aby nie wyświetlał hasła
 
-            model.addAttribute("appUserDto",appUserOptional);
+            AppUser user = appUserOptional.get();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+            AddUserData addUserData = AddUserData.builder()
+                    .email(user.getEmail())
+                    .dateOfBirth(formatter.format(user.getDateOfBirth()))
+                    .height(user.getHeight())
+                    .gender(user.getGender())
+                    .lifestyle(user.getLifestyle())
+                    .build();
+            model.addAttribute("updateUserData", addUserData);
+//            model.addAttribute("appUserDto", appUserOptional);
+            model.addAttribute("genders", Gender.values());
+            model.addAttribute("lifestyles", LifestyleType.values());
             return "user/userForm";
         }
         return "redirect:/login";
     }
+
+
+    @PostMapping("/userForm")
+    public String updateUser(Model model, AddUserData dto) throws ParseException {
+        Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
+        String login = appUserOptional.get().getLogin();
+
+
+        appUserService.updateAppUserData(login, dto);
+        model.addAttribute("updateUserData", dto);
+
+        return "redirect:/user/userForm";
+    }
+
 
 //    @PutMapping("/userForm")
 //    public String updateUserForm(Model model, AppUserDto appUserDto) {
@@ -59,22 +92,21 @@ public class UserWebController {
 //    }
 
 
-
-
-    @PutMapping("/userForm")
-    public String updateUserForm(Model model, AppUserDto appUserDto) {
-        Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
-        if (appUserOptional.isPresent()) {
-            String optionalLogin = appUserOptional.get().getLogin();
-
-
-        model.addAttribute("updateUserData",appUserOptional);
-        appUserService.update(optionalLogin, appUserDto);
-
-        return "user/userForm";
-    }
-        return "redirect:/login";
-    }
+//
+//    @PutMapping("/userForm")
+//    public String updateUserForm(Model model, AppUserDto appUserDto) {
+//        Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
+//        if (appUserOptional.isPresent()) {
+//            String optionalLogin = appUserOptional.get().getLogin();
+//
+//
+//        model.addAttribute("updateUserData",appUserOptional);
+//        appUserService.update(optionalLogin, appUserDto);
+//
+//        return "user/userForm";
+//    }
+//        return "redirect:/login";
+//    }
 
 
 //

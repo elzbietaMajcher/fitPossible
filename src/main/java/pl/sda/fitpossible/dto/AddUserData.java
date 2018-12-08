@@ -1,12 +1,16 @@
 package pl.sda.fitpossible.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.sda.fitpossible.entity.Gender;
 import pl.sda.fitpossible.entity.LifestyleType;
 
-import java.util.Date;
-
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AddUserData {
 
     private String email;
@@ -15,7 +19,8 @@ public class AddUserData {
 
     private Integer height;
 
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
     private LifestyleType lifestyle;
+
 }

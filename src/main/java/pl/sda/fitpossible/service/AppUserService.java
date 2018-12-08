@@ -12,7 +12,11 @@ import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.entity.NutritionHistory;
 import pl.sda.fitpossible.entity.Weight;
 import pl.sda.fitpossible.repository.*;
+
 import javax.persistence.EntityNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,9 +38,8 @@ public class AppUserService {
     @Autowired
     private WeightRepository weightRepository;
 
-   @Autowired
+    @Autowired
     private AppUserRepository appUserRepository;
-
 
 
     public void create(AppUserDto dto) { //ok
@@ -156,7 +159,26 @@ public class AppUserService {
         appUser.setLifestyle(dto.getLifestyle());
         return appUser;
     }
-//
+
+    //
+    public void updateAppUserData(String login, AddUserData dto) throws ParseException {
+        AppUser appUser = appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser " + login + " not found."));
+
+        appUser.setEmail(dto.getEmail());
+        appUser.setDateOfBirth(getAddBirthData(dto.getDateOfBirth()));
+        appUser.setGender(dto.getGender());
+        appUser.setHeight(dto.getHeight());
+        appUser.setLifestyle(dto.getLifestyle());
+        appUserRepository.save(appUser);
+    }
+
+
+    private Date getAddBirthData(String inputDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+      return format.parse(inputDate);
+    }
+
 //    public void updateAppUserData(String login, AppUserDto appUserDto) {
 //        Optional<AppUser> appUserOptional = appUserRepository.findByLogin(login);
 //        AppUser appUser = appUserOptional
