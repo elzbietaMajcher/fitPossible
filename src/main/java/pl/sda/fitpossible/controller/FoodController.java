@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.fitpossible.dto.FoodDto;
 import pl.sda.fitpossible.dto.NutritionHistoryDto;
+import pl.sda.fitpossible.dto.SelectedFoodDto;
 import pl.sda.fitpossible.entity.AppUser;
 import pl.sda.fitpossible.entity.Food;
 import pl.sda.fitpossible.entity.NutritionHistory;
@@ -41,7 +42,8 @@ public class FoodController {
         if (appUserOptional.isPresent()) {
             List<FoodDto> listFood = foodService.findAll();
 
-            model.addAttribute("listFood", listFood);
+            model.addAttribute("listFoods", listFood);
+            model.addAttribute("selectedFood", new SelectedFoodDto());
             return "user/userFood";
         }
         return "redirect:/login";
@@ -49,7 +51,7 @@ public class FoodController {
 
 
     @PostMapping(path = "/userFood")
-    public String getUserFood(Model model, String foodName) {
+    public String getUserFood(Model model, SelectedFoodDto foodDtox) {
         Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
         if (appUserOptional.isPresent()) {
 
@@ -57,12 +59,12 @@ public class FoodController {
 
             //przerobic nutriton history dto, i metode w service ,
             //w update login, nutrition history z id food i id user + autogeneracja daty
-            List<FoodDto> listFood = foodService.findAll();
+            FoodDto foodDto = foodDtox.getFoodDto();
 
-            nutritionHistoryService.create(appUserName, foodName);
+            nutritionHistoryService.create(appUserName, foodDto.getName());
 
-            model.addAttribute("listFood", listFood);
-            model.addAttribute("chooseFood", foodName);
+            model.addAttribute("listFoods", foodDto);
+
 
             return "user/userFood";
         }

@@ -48,15 +48,16 @@
                 <label for="gender">Choose gender:</label>
                 <select id="gender" th:field="*{gender}" class="form-control" th:value="*{gender}">
                     <option th:each="genderX : ${genders}" th:text="${genderX.name}" th:value="${genderX}"></option>
-                </select><!--<input type="text" class="form-control" name="gender" id="gender" th:field="*{gender}" placeholder="MALE or FEMALE">-->
+                </select>
+                <!--<input type="text" class="form-control" name="gender" id="gender" th:field="*{gender}" placeholder="MALE or FEMALE">-->
 
 
-                <label for=" lifestyle">Choose Life style:</label>
+                <label for="lifestyle">Choose Life style:</label>
                 <select id="lifestyle" th:field="*{lifestyle}" class="form-control" th:value="*{lifestyle}">
                     <option th:each="lifestyleX : ${lifestyles}" th:text="${lifestyleX.name}" th:value="${lifestyleX}"></option>
                 </select>
 
-                <input type="text" class="form-control" name=" lifestyle" id=" lifestyle" th:field="*{lifestyle}" placeholder="Choose between: INACTIVE, LOW_ACTIVE, MODERATELY_ACTIVE, ACTIVE, VERY_ACTIVE;">
+                <!--<input type="text" class="form-control" name=" lifestyle" id=" lifestyle" th:field="*{lifestyle}" placeholder="Choose between: INACTIVE, LOW_ACTIVE, MODERATELY_ACTIVE, ACTIVE, VERY_ACTIVE;">-->
 
                 <!--<div class="mb-3">-->
                 <!--<label for="gender">Gender <span class="text-muted">(Optional)</span></label>-->
