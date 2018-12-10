@@ -51,7 +51,7 @@ public class FoodController {
 
 
     @PostMapping(path = "/userFood")
-    public String getUserFood(Model model, SelectedFoodDto foodDtox) {
+    public String getUserFood(Model model, SelectedFoodDto request) {
         Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
         if (appUserOptional.isPresent()) {
 
@@ -59,7 +59,7 @@ public class FoodController {
 
             //przerobic nutriton history dto, i metode w service ,
             //w update login, nutrition history z id food i id user + autogeneracja daty
-            FoodDto foodDto = foodDtox.getFoodDto();
+            FoodDto foodDto = request.getFoodDto();
 
             nutritionHistoryService.create(appUserName, foodDto.getName());
 

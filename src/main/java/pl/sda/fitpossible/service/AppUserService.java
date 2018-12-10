@@ -137,6 +137,7 @@ public class AppUserService {
     private AppUserDto mapTo(AppUser appUser) {
         AppUserDto dto = new AppUserDto();
 
+        dto.setId(appUser.getId());
         dto.setLogin(appUser.getLogin());
         dto.setPassword(appUser.getPassword());
         dto.setEmail(appUser.getEmail());
@@ -150,6 +151,7 @@ public class AppUserService {
     private AppUser mapTo(AppUserDto dto) {
         AppUser appUser = new AppUser();
 
+        appUser.setId(dto.getId());
         appUser.setLogin(dto.getLogin());
         appUser.setPassword(dto.getPassword());
         appUser.setEmail(dto.getEmail());
