@@ -11,6 +11,9 @@ import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.WeightRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +31,12 @@ public class WeightService {
     }
 
     public void addWeight(WeightDto weightDto, String login) {
+
+        //Date date = Date.from(Instant.from(LocalDate.now()));
         Weight weight = mapTo(weightDto);
         AppUser owner = findUser(login);
         weight.setUser(owner);
+        //weight.setDate(date);
         weightRepository.save(weight);
     }
 

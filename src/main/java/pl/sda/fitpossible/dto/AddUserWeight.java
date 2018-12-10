@@ -1,18 +1,18 @@
 package pl.sda.fitpossible.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
-
 @Data
-
-public class WeightDto {
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AddUserWeight {
     private Long user_id;
-
+    //@NotNull
     private Date date;
     //@NotNull
     private Integer weight;

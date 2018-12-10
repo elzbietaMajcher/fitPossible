@@ -84,15 +84,16 @@ public class AppUserService {
     }*/
     public AppUserDto findUser(String login) {  //??
         AppUser appUser = appUserRepository.findByLogin(login)
-                .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
+                .orElseThrow(() -> new EntityNotFoundException("AppUser " + login + " not found."));
         return mapTo(appUser);
     }
 
-    public AppUserDto findUser(Long id) {
+    /*public AppUserDto findUser(Long id) {
         AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser not found."));
         return mapTo(appUser);
-    }
+    }*/
+
 
 
     public List<AppUserDto> findAll() {  //ok

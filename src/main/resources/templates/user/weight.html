@@ -1,0 +1,75 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+
+<head>
+    <th:block th:include="template :: head_scripts_css"/>
+</head>
+<body>
+<th:block th:include="template :: navbar"/>
+<h2>Add your current weight</h2>
+
+
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>User weight adding form</h2>
+        <p class="lead">Please, add your current weight.</p>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <form th:href="@{/user/weight}" method="post" th:object="${postWeight}">
+            <div class="form-group">
+                <label for="weight">Add weight:</label>
+                <input type="number" class="form-control" name="weight" id="weight" placeholder="input weight">
+
+                <div class="form-check">
+                    <input type="submit" class="btn btn-primary">Submit</input>
+                </div>
+
+                <div class="container">
+                    <h4>You weigt history:</h4>
+
+                </div>
+
+                <div class="row table-row" th:each="weight,i : ${weightList}">
+                <div class="col-3" th:text="${#dates.format(weight.getDate(),'dd-MM-yyyy')}"></div>
+                <div class="col-1" th:text="${weight.getWeight()}"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<th:block th:include="template :: footer"/>
+<th:block th:include="template :: scripts_js"/>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
