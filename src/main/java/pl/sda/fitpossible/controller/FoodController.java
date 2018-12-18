@@ -42,6 +42,7 @@ public class FoodController {
         if (appUserOptional.isPresent()) {
             List<FoodDto> listFood = foodService.findAll();
 
+
             model.addAttribute("listFoods", listFood);
             model.addAttribute("selectedFood", new SelectedFoodDto());
             return "user/userFood";
@@ -59,11 +60,12 @@ public class FoodController {
 
             //przerobic nutriton history dto, i metode w service ,
             //w update login, nutrition history z id food i id user + autogeneracja daty
-            FoodDto foodDto = request.getFoodDto();
+           // FoodDto foodDto = request.getFoodDto();
 
-            nutritionHistoryService.create(appUserName, foodDto.getName());
 
-            model.addAttribute("listFoods", foodDto);
+
+            nutritionHistoryService.create(appUserName, request.getFoodDto());
+            model.addAttribute("selectedFood", request);
 
 
             return "user/userFood";

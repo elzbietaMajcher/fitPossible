@@ -24,7 +24,7 @@
 
                     <label for="foodDto">Choose food:</label>
                     <select id="foodDto" th:field="*{foodDto}">
-                        <option th:each="foodx : ${listFoods}" th:text="${foodx}" th:value="${foodx}"></option>
+                        <option th:each="foodx : ${listFoods}" th:text="${foodx.getName()}" th:value="${foodx.getName()}"></option>
                     </select>
 
 

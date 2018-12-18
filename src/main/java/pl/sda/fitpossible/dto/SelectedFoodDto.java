@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SelectedFoodDto {
-    private FoodDto foodDto;
+    private String foodDto;
 }
