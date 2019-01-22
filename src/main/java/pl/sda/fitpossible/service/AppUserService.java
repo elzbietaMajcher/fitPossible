@@ -31,7 +31,7 @@ public class AppUserService {
     @Autowired
     private ActivityHistoryRepository activityHistoryRepository;
     @Autowired
-    private NutritonHistoryRepository nutritonHistoryRepository;
+    private NutritionHistoryRepository nutritonHistoryRepository;
     @Autowired
     private AppUserRoleService appUserRoleService;
 
@@ -117,6 +117,8 @@ public class AppUserService {
         AppUser userToDelete = appUserRepository.findByLogin(login)
                 .orElseThrow(Exception::new);
 
+        Long id = userToDelete.getId();
+
         List<Weight> weightByOwner = weightRepository.findAllByUserLogin(login);
         for (Weight weight : weightByOwner) {
             weightRepository.delete(weight);
@@ -127,8 +129,8 @@ public class AppUserService {
             activityHistoryRepository.delete(history);
         }
 
-        List<NutritionHistory> nutritionHistoryByOwner = nutritonHistoryRepository.findAllByAppUserId(login);
-        for (NutritionHistory history : nutritionHistoryByOwner) {
+        List<NutritionHistory> nutritionHistoryByOwner = nutritonHistoryRepository.findAllByUserId(id);
+            for (NutritionHistory history : nutritionHistoryByOwner) {
             nutritonHistoryRepository.delete(history);
         }
         appUserRepository.delete(userToDelete);
@@ -175,7 +177,6 @@ public class AppUserService {
         appUser.setLifestyle(dto.getLifestyle());
         appUserRepository.save(appUser);
     }
-
 
     private Date getAddBirthData(String inputDate) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

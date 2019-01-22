@@ -33,6 +33,9 @@ public class AppUser implements Serializable {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Collection<Weight> weightMeasurements;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Collection<NutritionHistory> userNutritionHistories;
+
 
 
 

@@ -21,9 +21,11 @@ public class NutritionHistory implements Serializable {
     private LocalDateTime mealTime;
 
 
-    private Long appUserId;
+    //private Long appUserId;
     private Long foodId;
 
+    @ManyToOne
+    private AppUser user;
 
 //
 //

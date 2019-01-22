@@ -6,10 +6,12 @@ import pl.sda.fitpossible.dto.NutritionHistoryDto;
 import pl.sda.fitpossible.entity.AppUser;
 import pl.sda.fitpossible.entity.NutritionHistory;
 import pl.sda.fitpossible.repository.AppUserRepository;
-import pl.sda.fitpossible.repository.NutritonHistoryRepository;
+import pl.sda.fitpossible.repository.NutritionHistoryRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,56 +19,73 @@ import java.util.stream.Collectors;
 public class NutritionHistoryService {
     @Autowired
     private AppUserRepository appUserRepository;
-    private NutritonHistoryRepository nutritonHistoryRepository;
+    private NutritionHistoryRepository nutritonHistoryRepository;
     @Autowired
     private FoodService foodService;
     @Autowired
     private AppUserService appUserService;
 
-    public NutritionHistoryService(NutritonHistoryRepository nutritonHistoryRepository) {
+    public NutritionHistoryService(NutritionHistoryRepository nutritonHistoryRepository) {
         this.nutritonHistoryRepository = nutritonHistoryRepository;
     }
 
-    public void create (String login, String foodName){
+
+    public List<NutritionHistoryDto> getUserAllNutritionHistory(Long id){
+        List<NutritionHistory> nutritionHistory = nutritonHistoryRepository.findAllByUserId(id);
+        return nutritionHistory.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<NutritionHistoryDto> getUserDailyNutritionHistory(Long id){
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDate date = now.toLocalDate();
+        LocalTime time = LocalTime.parse("14:00:00");//how to write a test to check it. This hour is put to check if method is working properly, should be "00:00:00"
+        LocalDateTime past = LocalDateTime.of(date,time);
+        List<NutritionHistory> history = nutritonHistoryRepository.findNutritionHistoryByMealTimeAfterAndAndUserId(past, id);
+
+        return history.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+
+    public void create(String login, String foodName) {
         NutritionHistory nutritionHistory = new NutritionHistory();
         Long appUserId = appUserService.findUser(login).getId();
         Long foodId = foodService.findByName(foodName).getId();
 
         nutritionHistory.setMealTime(LocalDateTime.now());
-        nutritionHistory.setAppUserId(appUserId);
+        AppUser owner = findUser(login);
+        nutritionHistory.setUser(owner);
         nutritionHistory.setFoodId(foodId);
         nutritonHistoryRepository.save(nutritionHistory);
     }
 
-//    public void createNutritionHistory(NutritionHistoryDto nutritionHistoryDto, String login) {
-//        NutritionHistory nutritionHistory = mapTo(nutritionHistoryDto);
-//        AppUser owner = findUser(login);
-//        nutritionHistory.setUser(owner);
-//        nutritonHistoryRepository.save(nutritionHistory);
-//    }
-//
-//
-    public List<NutritionHistoryDto> findAllForUser(Long appUserId) {
-        List<NutritionHistory> history = nutritonHistoryRepository.findAllByAppUserId(appUserId);
-        return history.stream().map(this::mapTo).collect(Collectors.toList());
+    private AppUser findUser(String login) { // jak wyniesc te metode aby ja uwspolnic
+        return appUserRepository.findByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
+
     }
 
-        private NutritionHistory mapTo(NutritionHistoryDto nutritionHistoryDto) {
+
+
+
+
+
+
+    private NutritionHistory mapTo(NutritionHistoryDto nutritionHistoryDto) {
         NutritionHistory nutritionHistory = new NutritionHistory();
-        nutritionHistory.setAppUserId(nutritionHistory.getAppUserId());
         nutritionHistory.setFoodId(nutritionHistory.getFoodId());
         nutritionHistory.setMealTime(nutritionHistoryDto.getMealTime());
         return nutritionHistory;
     }
 
-    private NutritionHistoryDto mapTo(NutritionHistory nutritionHistory) {
+    private NutritionHistoryDto mapToDto(NutritionHistory nutritionHistory) {
         NutritionHistoryDto nutritionHistoryDto = new NutritionHistoryDto();
-        nutritionHistory.setAppUserId(nutritionHistory.getAppUserId());
-        nutritionHistory.setFoodId(nutritionHistory.getFoodId());
-        nutritionHistory.setMealTime(nutritionHistoryDto.getMealTime());
+        nutritionHistoryDto.setAppUserId(nutritionHistory.getUser().getId());
+        nutritionHistoryDto.setFoodId(nutritionHistory.getFoodId());
+        nutritionHistoryDto.setMealTime(nutritionHistory.getMealTime());
+
         return nutritionHistoryDto;
     }
-
 
 
 //
