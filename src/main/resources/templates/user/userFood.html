@@ -47,7 +47,9 @@
 
        <div class="row table-row" th:each="history,i : ${userDayHistory}">
 
-            <div class="col-1" th:text="${history}"></div>
+            <div class="col-3" th:text="${history.getName()}"></div>
+            <div class="col-1" th:text="${history.getUnit()}"></div>
+            <div class="col-1" th:text="${history.getTime()}"></div>
         </div>
     </div>
 

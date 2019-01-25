@@ -1,11 +1,15 @@
 package pl.sda.fitpossible.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sda.fitpossible.dto.FoodDto;
+import pl.sda.fitpossible.dto.NutritionHistoryDto;
 import pl.sda.fitpossible.entity.Food;
 import pl.sda.fitpossible.repository.FoodRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,9 +17,15 @@ import java.util.stream.Collectors;
 @Service
 public class FoodService {
 
-
+    @Autowired
+    private NutritionHistoryService nutritionHistoryService;
     private FoodRepository foodRepository;
-    public FoodService(FoodRepository foodRepository){this.foodRepository = foodRepository;}
+    public FoodService(FoodRepository foodRepository){
+        this.foodRepository = foodRepository;
+       }
+
+
+
 
     public void createFood(FoodDto foodDto){
         Food food = mapTo(foodDto);
@@ -34,6 +44,18 @@ public class FoodService {
         findFood.setCaloriesPerUnit(foodDto.getCaloriesPerUnit());
         findFood.setUnit(foodDto.getUnit());
         foodRepository.save(findFood);
+    }
+
+    public List<FoodDto> showUserFoodHistory(Long id){
+        List<FoodDto> foodHistory = new ArrayList<>();
+        List<NutritionHistoryDto> nutritionHistoryDtos = nutritionHistoryService.getUserDailyNutritionHistory(id);
+        for (NutritionHistoryDto n : nutritionHistoryDtos){
+           FoodDto foodDto = findFood(n.getFoodId());
+           LocalTime time = LocalTime.from(n.getMealTime());
+           foodDto.setTime(time);
+           foodHistory.add(foodDto);
+        }
+        return foodHistory;
     }
 
     public FoodDto findFood(Long id){
@@ -57,7 +79,7 @@ public class FoodService {
 
 
 
-    private Food mapTo(FoodDto foodDto) {
+    public Food mapTo(FoodDto foodDto) {
         Food food =new Food();
         food.setId(foodDto.getId());
         food.setName(foodDto.getName());

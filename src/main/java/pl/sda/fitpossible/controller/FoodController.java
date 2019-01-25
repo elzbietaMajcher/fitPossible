@@ -42,8 +42,9 @@ public class FoodController {
         if (appUserOptional.isPresent()) {
             List<FoodDto> listFood = foodService.findAll();
             Long id = appUserOptional.get().getId();
-            List<NutritionHistoryDto> userDayFoodHistory = nutritionHistoryService.getUserDailyNutritionHistory(id);
-//            List<NutritionHistoryDto> userDayFoodHistory = nutritionHistoryService.getUserNutritionHistory();
+            List<FoodDto> userDayFoodHistory = foodService.showUserFoodHistory(id);
+//            List<NutritionHistoryDto> userDayFoodHistory = nutritionHistoryService.getUserDailyNutritionHistory(id);
+//         //   List<NutritionHistoryDto> userDayFoodHistory = nutritionHistoryService.getUserNutritionHistory();
 
             model.addAttribute("userDayHistory", userDayFoodHistory);
             model.addAttribute("listFoods", listFood);

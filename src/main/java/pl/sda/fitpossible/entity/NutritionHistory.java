@@ -27,6 +27,8 @@ public class NutritionHistory implements Serializable {
     @ManyToOne
     private AppUser user;
 
+
+
 //
 //
 //

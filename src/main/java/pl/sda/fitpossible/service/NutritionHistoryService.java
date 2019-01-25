@@ -2,8 +2,10 @@ package pl.sda.fitpossible.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sda.fitpossible.dto.FoodDto;
 import pl.sda.fitpossible.dto.NutritionHistoryDto;
 import pl.sda.fitpossible.entity.AppUser;
+import pl.sda.fitpossible.entity.Food;
 import pl.sda.fitpossible.entity.NutritionHistory;
 import pl.sda.fitpossible.repository.AppUserRepository;
 import pl.sda.fitpossible.repository.NutritionHistoryRepository;
@@ -30,17 +32,17 @@ public class NutritionHistoryService {
     }
 
 
-    public List<NutritionHistoryDto> getUserAllNutritionHistory(Long id){
+    public List<NutritionHistoryDto> getUserAllNutritionHistory(Long id) {
         List<NutritionHistory> nutritionHistory = nutritonHistoryRepository.findAllByUserId(id);
         return nutritionHistory.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
-    public List<NutritionHistoryDto> getUserDailyNutritionHistory(Long id){
+    public List<NutritionHistoryDto> getUserDailyNutritionHistory(Long id) {
 
         LocalDateTime now = LocalDateTime.now();
         LocalDate date = now.toLocalDate();
-        LocalTime time = LocalTime.parse("14:00:00");//how to write a test to check it. This hour is put to check if method is working properly, should be "00:00:00"
-        LocalDateTime past = LocalDateTime.of(date,time);
+        LocalTime time = LocalTime.parse("00:00:00");
+        LocalDateTime past = LocalDateTime.of(date, time);
         List<NutritionHistory> history = nutritonHistoryRepository.findNutritionHistoryByMealTimeAfterAndAndUserId(past, id);
 
         return history.stream().map(this::mapToDto).collect(Collectors.toList());
@@ -50,12 +52,12 @@ public class NutritionHistoryService {
     public void create(String login, String foodName) {
         NutritionHistory nutritionHistory = new NutritionHistory();
         Long appUserId = appUserService.findUser(login).getId();
-        Long foodId = foodService.findByName(foodName).getId();
+        Long food = foodService.findByName(foodName).getId();
 
         nutritionHistory.setMealTime(LocalDateTime.now());
         AppUser owner = findUser(login);
         nutritionHistory.setUser(owner);
-        nutritionHistory.setFoodId(foodId);
+        nutritionHistory.setFoodId(food);
         nutritonHistoryRepository.save(nutritionHistory);
     }
 
@@ -64,11 +66,6 @@ public class NutritionHistoryService {
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
 
     }
-
-
-
-
-
 
 
     private NutritionHistory mapTo(NutritionHistoryDto nutritionHistoryDto) {
