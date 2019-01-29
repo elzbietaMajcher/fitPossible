@@ -49,4 +49,19 @@ public class UserFoodHistoryService {
         return ufhDto;
     }
 
+    private int findCalories (NutritionHistoryDto n){
+        FoodDto foodDto = foodService.findFood(n.getFoodId());
+        return foodDto.getCaloriesPerUnit();
+    }
+
+    public int calculateCalories(Long userId) {
+        List<NutritionHistoryDto> nutritionHistoryDtos =  nutritionHistoryService.getUserDailyNutritionHistory(userId);
+        int calculate = 0;
+        for (NutritionHistoryDto n : nutritionHistoryDtos) {
+
+
+            calculate += findCalories(n);
+        }
+        return calculate;
+    }
 }

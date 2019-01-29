@@ -41,6 +41,7 @@ public class FoodController {
     public String getFoodList(Model model, Long deleteId) {
         Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
         if (appUserOptional.isPresent()) {
+            Long id = appUserOptional.get().getId();
 
             if (deleteId != null){
                 nutritionHistoryService.deleteFromUserHistory(deleteId);
@@ -48,14 +49,15 @@ public class FoodController {
             }
 
             List<FoodDto> listFood = foodService.findAll();
-            Long id = appUserOptional.get().getId();
+
             List<UserFoodHistoryDto> userDayFoodHistory = userFoodHistoryService.showUserFoodHistory(id);
-//            List<NutritionHistoryDto> userDayFoodHistory = nutritionHistoryService.getUserDailyNutritionHistory(id);
-//         //   List<NutritionHistoryDto> userDayFoodHistory = nutritionHistoryService.getUserNutritionHistory();
+
+            int calculate = userFoodHistoryService.calculateCalories(id);
 
             model.addAttribute("userDayHistory", userDayFoodHistory);
             model.addAttribute("listFoods", listFood);
             model.addAttribute("selectedFood", new SelectedFoodDto());
+            model.addAttribute("calculateCalories", calculate);
             return "user/userFood";
         }
         return "redirect:/login";
