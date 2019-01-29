@@ -46,17 +46,6 @@ public class FoodService {
         foodRepository.save(findFood);
     }
 
-    public List<FoodDto> showUserFoodHistory(Long id){
-        List<FoodDto> foodHistory = new ArrayList<>();
-        List<NutritionHistoryDto> nutritionHistoryDtos = nutritionHistoryService.getUserDailyNutritionHistory(id);
-        for (NutritionHistoryDto n : nutritionHistoryDtos){
-           FoodDto foodDto = findFood(n.getFoodId());
-           LocalTime time = LocalTime.from(n.getMealTime());
-           foodDto.setTime(time);
-           foodHistory.add(foodDto);
-        }
-        return foodHistory;
-    }
 
     public FoodDto findFood(Long id){
         Optional<Food> food = foodRepository.findById(id);

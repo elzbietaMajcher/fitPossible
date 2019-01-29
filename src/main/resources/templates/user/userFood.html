@@ -45,11 +45,18 @@
         <!--<div class="col-1" th:text="${food.getUnit()}"></div>-->
         <!--</div>-->
 
-       <div class="row table-row" th:each="history,i : ${userDayHistory}">
+       <div class="row table-row" th:each="userFoodHistoryDto,i : ${userDayHistory}">
 
-            <div class="col-3" th:text="${history.getName()}"></div>
-            <div class="col-1" th:text="${history.getUnit()}"></div>
-            <div class="col-1" th:text="${history.getTime()}"></div>
+            <div class="col-3" th:text="${userFoodHistoryDto.getFoodName()}"></div>
+            <div class="col-1" th:text="${userFoodHistoryDto.getUnit()}"></div>
+            <div class="col-1" th:text="${userFoodHistoryDto.getMealTime()}"></div>
+
+           <span class="col-1">
+                                <a th:href="@{/user/userFood(deleteId=${userFoodHistoryDto.getHistoryId()})}">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </span>
+
         </div>
     </div>
 

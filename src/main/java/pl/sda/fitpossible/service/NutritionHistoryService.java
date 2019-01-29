@@ -72,6 +72,7 @@ public class NutritionHistoryService {
         NutritionHistory nutritionHistory = new NutritionHistory();
         nutritionHistory.setFoodId(nutritionHistory.getFoodId());
         nutritionHistory.setMealTime(nutritionHistoryDto.getMealTime());
+        nutritionHistory.setId(nutritionHistoryDto.getHistoryId());
         return nutritionHistory;
     }
 
@@ -80,8 +81,12 @@ public class NutritionHistoryService {
         nutritionHistoryDto.setAppUserId(nutritionHistory.getUser().getId());
         nutritionHistoryDto.setFoodId(nutritionHistory.getFoodId());
         nutritionHistoryDto.setMealTime(nutritionHistory.getMealTime());
-
+        nutritionHistoryDto.setHistoryId(nutritionHistory.getId());
         return nutritionHistoryDto;
+    }
+
+    public void deleteFromUserHistory(Long deleteId) {
+        nutritonHistoryRepository.deleteById(deleteId);
     }
 
 

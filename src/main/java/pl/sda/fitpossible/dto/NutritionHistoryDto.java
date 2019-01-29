@@ -11,6 +11,7 @@ public class NutritionHistoryDto {
    // private Long id;
 
     private LocalDateTime mealTime;
+    private Long historyId;
 
     @NotNull
     private Long appUserId;

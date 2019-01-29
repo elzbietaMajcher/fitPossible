@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.fitpossible.dto.FoodDto;
 import pl.sda.fitpossible.dto.NutritionHistoryDto;
 import pl.sda.fitpossible.dto.SelectedFoodDto;
+import pl.sda.fitpossible.dto.UserFoodHistoryDto;
 import pl.sda.fitpossible.entity.AppUser;
 import pl.sda.fitpossible.entity.Food;
 import pl.sda.fitpossible.entity.NutritionHistory;
-import pl.sda.fitpossible.service.AppUserService;
-import pl.sda.fitpossible.service.FoodService;
-import pl.sda.fitpossible.service.NutritionHistoryService;
-import pl.sda.fitpossible.service.UserAuthenticationService;
+import pl.sda.fitpossible.service.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,15 +32,24 @@ public class FoodController {
     public FoodService foodService;
 
     @Autowired
+    public UserFoodHistoryService userFoodHistoryService;
+
+    @Autowired
     public NutritionHistoryService nutritionHistoryService;
 
     @GetMapping(path = "/userFood")
-    public String getFoodList(Model model) {
+    public String getFoodList(Model model, Long deleteId) {
         Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
         if (appUserOptional.isPresent()) {
+
+            if (deleteId != null){
+                nutritionHistoryService.deleteFromUserHistory(deleteId);
+                return "redirect:/user/userFood";
+            }
+
             List<FoodDto> listFood = foodService.findAll();
             Long id = appUserOptional.get().getId();
-            List<FoodDto> userDayFoodHistory = foodService.showUserFoodHistory(id);
+            List<UserFoodHistoryDto> userDayFoodHistory = userFoodHistoryService.showUserFoodHistory(id);
 //            List<NutritionHistoryDto> userDayFoodHistory = nutritionHistoryService.getUserDailyNutritionHistory(id);
 //         //   List<NutritionHistoryDto> userDayFoodHistory = nutritionHistoryService.getUserNutritionHistory();
 

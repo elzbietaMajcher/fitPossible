@@ -14,4 +14,5 @@ public class FoodDto {
     private Integer caloriesPerUnit;
     private String unit;
     private LocalTime time;
+
 }
