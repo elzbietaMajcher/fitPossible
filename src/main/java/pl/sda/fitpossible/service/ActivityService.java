@@ -49,7 +49,7 @@ public class ActivityService {
         activityRepository.deleteById(id);
     }
 
-    private Activity mapTo(ActivityDto activityDto) {
+    protected Activity mapTo(ActivityDto activityDto) {
         Activity activity = new Activity();
         activity.setId(activityDto.getId());
         activity.setActivityType(activityDto.getActivityType());
@@ -58,7 +58,7 @@ public class ActivityService {
         return activity;
     }
 
-    private ActivityDto mapTo(Activity activity) {
+    protected ActivityDto mapTo(Activity activity) {
         ActivityDto activityDto = new ActivityDto();
         activityDto.setId(activity.getId());
         activityDto.setActivityType(activity.getActivityType());
@@ -67,4 +67,9 @@ public class ActivityService {
         return activityDto;
     }
 
+    public ActivityDto findActivityByName(String activityName) {
+        Activity activity = activityRepository.findActivityByActivityType(activityName)
+                .orElseThrow(() -> new EntityNotFoundException("Activity not found."));
+        return mapTo(activity);
+    }
 }

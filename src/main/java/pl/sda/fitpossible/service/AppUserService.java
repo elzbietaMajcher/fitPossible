@@ -82,9 +82,9 @@ public class AppUserService {
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
         return mapTo(appUser);
     }*/
-    public AppUserDto findUser(String login) {  //??
-        AppUser appUser = appUserRepository.findByLogin(login)
-                .orElseThrow(() -> new EntityNotFoundException("AppUser " + login + " not found."));
+    public AppUserDto findUser(Long id) {  //??
+        AppUser appUser = appUserRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("AppUser " + id + " not found."));
         return mapTo(appUser);
     }
 
@@ -137,7 +137,7 @@ public class AppUserService {
     }
 
 
-    private AppUserDto mapTo(AppUser appUser) {
+    protected AppUserDto mapTo(AppUser appUser) {
         AppUserDto dto = new AppUserDto();
 
         dto.setId(appUser.getId());
@@ -151,7 +151,7 @@ public class AppUserService {
         return dto;
     }
 
-    private AppUser mapTo(AppUserDto dto) {
+    protected AppUser mapTo(AppUserDto dto) {
         AppUser appUser = new AppUser();
 
         appUser.setId(dto.getId());

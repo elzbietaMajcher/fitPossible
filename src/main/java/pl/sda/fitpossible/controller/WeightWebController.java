@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/user")
-public class WeightController {
+public class WeightWebController {
 
     @Autowired
     public UserAuthenticationService userAuthenticationService;

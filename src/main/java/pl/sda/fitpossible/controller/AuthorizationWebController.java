@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-public class AuthorizationController {
+public class AuthorizationWebController {
 
     @Autowired
     public AppUserService appUserService;

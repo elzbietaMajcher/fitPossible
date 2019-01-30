@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -15,14 +16,13 @@ public class ActivityHistory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String activityType;
-    private int caloriesPerHour;
-    private int caloriesPerRep;
-    // @CreationTimestamp
     private LocalDateTime startTime;
-    //@UpdateTimestamp
     private LocalDateTime finishTime;
-    private int reps;
+    private int repeats;
+
+    @ManyToOne
+    private Activity activity;
+
     @ManyToOne
     private AppUser user;
 }

@@ -43,7 +43,7 @@ public class AppUserRestController {
 
     @GetMapping("/login/{login}")  //ok
     public AppUserDto getUserByLogin(@PathVariable String login) {
-        return appUserService.findUser(login);
+        return appUserService.findUserByLogin(login);
     }
 
     @GetMapping("/all")//ok

@@ -35,13 +35,8 @@
     <div class="mb-3">
         <div class="container">
             <h4>You day food history:</h4>
-
         </div>
 
-        <!--<div class="row table-row" th:each="food,i : ${listFood}">-->
-        <!--<div class="col-1" th:text="${food.getName()}"></div>-->
-        <!--<div class="col-1" th:text="${food.getUnit()}"></div>-->
-        <!--</div>-->
         <div class="row header">
             <div class="col-3">Dish name</div>
             <div class="col-1">Quantity</div>
@@ -49,21 +44,19 @@
             <div class="col-1">Hour</div>
         </div>
 
-
         <div class="row table-row" th:each="userFoodHistoryDto,i : ${userDayHistory}">
 
             <div class="col-3" th:text="${userFoodHistoryDto.getFoodName()}"></div>
             <div class="col-1" th:text="${userFoodHistoryDto.getUnit()}"></div>
             <div class="col-1" th:text="${userFoodHistoryDto.getCaloriesPerUnit()}"></div>
             <div class="col-1" th:text="${userFoodHistoryDto.getMealTime()}"></div>
-
             <span class="col-1">
                                 <a th:href="@{/user/userFood(deleteId=${userFoodHistoryDto.getHistoryId()})}">
                                     <span aria-hidden="true">&times;</span>
                                 </a>
-                            </span>
-
+            </span>
         </div>
+
         <div class="row table-row">
             <div class="col-4">calories daily sum:</div>
             <div class="col-1" th:text="${calculateCalories}"></div>

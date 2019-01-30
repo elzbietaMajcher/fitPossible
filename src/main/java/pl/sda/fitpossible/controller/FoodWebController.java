@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/user")
-public class FoodController {
+public class FoodWebController {
     @Autowired
     public UserAuthenticationService userAuthenticationService;
 
@@ -71,11 +71,6 @@ public class FoodController {
 
             String appUserName = appUserOptional.get().getLogin();
 
-            //przerobic nutriton history dto, i metode w service ,
-            //w update login, nutrition history z id food i id user + autogeneracja daty
-            // FoodDto foodDto = request.getFoodDto();
-
-
             nutritionHistoryService.create(appUserName, request.getFoodDto());
             model.addAttribute("selectedFood", request);
 
@@ -85,34 +80,4 @@ public class FoodController {
         return "redirect:/login";
     }
 
-//    @PostMapping(path = "/userFood")
-//    public String postUserFood(Model model, String foodName) {
-//        Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
-//        String appUserName = appUserOptional.get().getLogin();
-//
-//        //przerobic nutriton history dto, i metode w service ,
-//        //w update login, nutrition history z id food i id user + autogeneracja daty
-//        List<FoodDto> listFood = foodService.findAll();
-//        model.addAttribute("listFood", listFood);
-//        nutritionHistoryService.create(appUserName,foodName);
-//        return "redirect:user/userFood";
-//    }
-
-//
-//
-//    @PostMapping(path = "/userFood")
-//    public String postUserFood(Model model, FoodDto foodDto) {
-//        Optional<AppUser> appUserOptional = userAuthenticationService.getLoggedInUser();
-//        Long appUserId = appUserOptional.get().getId();
-//        Long foodId = foodDto.getId();
-//        //przerobic nutriton history dto, i metode w service ,
-//        //w update login, nutrition history z id food i id user + autogeneracja daty
-//
-//        nutritionHistoryService.create(appUserId, foodId);
-//
-//        model.addAttribute("chooseFromListFood", );
-//
-//
-//        return "redirect:user/userFood";
-//    }
 }

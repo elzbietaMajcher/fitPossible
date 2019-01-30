@@ -9,15 +9,19 @@ import java.time.LocalDateTime;
 
 @Data
 public class ActivityHistoryDto {
-    private Long user_id;
-    @NotNull
-    private String activityType;
-    private int caloriesPerHour;
-    private int caloriesPerRep;
-   // @CreationTimestamp
+
+//    private Long id;
+//    private Long user_id;
+//    private Long activityTypeId;
+//    private LocalDateTime startTime;
+//    private LocalDateTime finishTime;
+//    private int repeats;
+
+    private Long id;
+    private AppUserDto appUserDto;
+    private ActivityDto activityDto;
     private LocalDateTime startTime;
-    //@UpdateTimestamp
     private LocalDateTime finishTime;
-    private int reps;
+    private int repeats;
 
 }

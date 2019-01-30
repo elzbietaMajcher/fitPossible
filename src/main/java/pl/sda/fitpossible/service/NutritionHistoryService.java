@@ -51,7 +51,7 @@ public class NutritionHistoryService {
 
     public void create(String login, String foodName) {
         NutritionHistory nutritionHistory = new NutritionHistory();
-        Long appUserId = appUserService.findUser(login).getId();
+        Long appUserId = appUserService.findUserByLogin(login).getId();
         Long food = foodService.findByName(foodName).getId();
 
         nutritionHistory.setMealTime(LocalDateTime.now());
