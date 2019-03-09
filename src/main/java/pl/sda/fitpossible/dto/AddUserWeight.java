@@ -17,4 +17,6 @@ public class AddUserWeight {
     //@NotNull
     private Integer weight;
 
+    //TODO
+
 }

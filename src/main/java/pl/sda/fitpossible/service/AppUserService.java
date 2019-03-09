@@ -171,7 +171,7 @@ public class AppUserService {
                 .orElseThrow(() -> new EntityNotFoundException("AppUser " + login + " not found."));
 
         appUser.setEmail(dto.getEmail());
-        //appUser.setDateOfBirth(getAddBirthData(dto.getDateOfBirth()));
+        // TODO needed data formatter: appUser.setDateOfBirth(getAddBirthData(dto.getDateOfBirth()));
         appUser.setGender(dto.getGender());
         appUser.setHeight(dto.getHeight());
         appUser.setLifestyle(dto.getLifestyle());

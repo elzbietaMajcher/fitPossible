@@ -61,14 +61,14 @@ public class NutritionHistoryService {
         nutritonHistoryRepository.save(nutritionHistory);
     }
 
-    private AppUser findUser(String login) { // jak wyniesc te metode aby ja uwspolnic
+    private AppUser findUser(String login) { //TODO some classes use exactly the same method
         return appUserRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
 
     }
 
 
-    private NutritionHistory mapTo(NutritionHistoryDto nutritionHistoryDto) {
+    private NutritionHistory mapTo(NutritionHistoryDto nutritionHistoryDto) {//TODO is not used, do we need this?
         NutritionHistory nutritionHistory = new NutritionHistory();
         nutritionHistory.setFoodId(nutritionHistory.getFoodId());
         nutritionHistory.setMealTime(nutritionHistoryDto.getMealTime());

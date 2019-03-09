@@ -69,7 +69,7 @@ public class ActivityWebController {
         if (optionalAppUser.isPresent()){
             Long userId = optionalAppUser.get().getId();
             ActivityHistoryDto activityHistoryDto = new ActivityHistoryDto();
-//zrobić dostosowanie daty, imput ma taki zapis [2019-01-30T17:47]
+//TODO data formatter, input format: [2019-01-30T17:47]
             activityHistoryService.create(userId, request);
             model.addAttribute("selectedActivity", request);
 

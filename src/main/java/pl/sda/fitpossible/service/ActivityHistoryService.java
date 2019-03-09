@@ -69,7 +69,7 @@ public class ActivityHistoryService {
         return activityHistories.stream().map(this::mapTo).collect(Collectors.toList());
     }
 
-    private AppUser findUser(String login) { // jak wyniesc te metode aby ja uwspolnic
+    private AppUser findUser(String login) {
         return appUserRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
 

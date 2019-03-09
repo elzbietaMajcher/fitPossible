@@ -21,8 +21,7 @@ public class NutritionHistory implements Serializable {
     @ManyToOne
     private AppUser user;
 
-
-
+//TODO: possibility to add quantity / pieces of food, example: sandwich 2 pieces
 //
 //
 //

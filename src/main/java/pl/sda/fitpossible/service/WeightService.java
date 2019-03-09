@@ -32,11 +32,11 @@ public class WeightService {
 
     public void addWeight(WeightDto weightDto, String login) {
 
-        //Date date = Date.from(Instant.from(LocalDate.now()));
+        //TODO Date date = Date.from(Instant.from(LocalDate.now()));
         Weight weight = mapTo(weightDto);
         AppUser owner = findUser(login);
         weight.setUser(owner);
-        //weight.setDate(date);
+        //TODO weight.setDate(date);
         weightRepository.save(weight);
     }
 
@@ -45,7 +45,7 @@ public class WeightService {
         return weightHistory.stream().map(this::mapTo).collect(Collectors.toList());
     }
 
-    private AppUser findUser(String login) { // jak wyniesc te metode aby ja uwspolnic
+    private AppUser findUser(String login) { //TODO some classes use exactly the same method
         return appUserRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("AppUser" + login + " not found."));
 
