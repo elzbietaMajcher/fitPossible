@@ -68,7 +68,7 @@ public class ActivityWebController {
         Optional<AppUser> optionalAppUser = userAuthenticationService.getLoggedInUser();
         if (optionalAppUser.isPresent()){
             Long userId = optionalAppUser.get().getId();
-            ActivityHistoryDto activityHistoryDto = new ActivityHistoryDto();
+            //ActivityHistoryDto activityHistoryDto = new ActivityHistoryDto();
 //TODO data formatter, input format: [2019-01-30T17:47]
             activityHistoryService.create(userId, request);
             model.addAttribute("selectedActivity", request);

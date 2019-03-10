@@ -4,5 +4,8 @@ public enum ActivityType {
     RUNNING,
     WALKING,
     PUSHUPS,
-    SQUATS
+    SQUATS;
+
+    //TODO do we need it?
+
 }
